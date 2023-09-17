@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Npgsql.EntityFrameworkCore;
 
 namespace CompServiceApplication
 {
@@ -13,6 +14,13 @@ namespace CompServiceApplication
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            var connectionString = builder.Configuration.GetConnectionString(name: "DefaultCnnection");
+
+            builder.Services.AddDbContext<AppDatabaseContext>(optionsAction: options =>
+            {
+                options.UseNpgsql(connectionString);
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -23,12 +31,6 @@ namespace CompServiceApplication
                 app.UseHsts();
             }
 
-            var connectionString = builder.Configuration.GetConnectionString(name:"DefaultCnnection");
-
-            builder.Services.AddDbContext<AppDatabaseContext>(optionsAction: options =>
-            {
-                options.UseNpgsql(connectionString);
-            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
