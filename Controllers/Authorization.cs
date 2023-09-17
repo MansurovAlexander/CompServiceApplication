@@ -1,14 +1,13 @@
 ﻿using CompServiceApplication.Classes;
 using CompServiceApplication.Models;
 using Microsoft.AspNetCore.Mvc;
-using Npgsql.EntityFrameworkCore;
 
 namespace CompServiceApplication.Controllers
 {
-    public class AuthorizationController : Controller
+    public class Authorization : Controller
     {
         private readonly AppDatabaseContext _db;
-        public AuthorizationController(AppDatabaseContext db)
+        public Authorization(AppDatabaseContext db)
         {
             _db = db;
         }
@@ -21,29 +20,30 @@ namespace CompServiceApplication.Controllers
             {
                 case "admin":
                     {
-                        Redirect("/Pages/Views/AdminView.cshtml");
+                        Redirect("/Views/AdminView");
                         break;
                     }
                 case "worker":
                     {
-                        Redirect("/Pages/Views/AdminView.cshtml");
+                        Redirect("/Views/AdminView");
                         break;
                     }
                 case "manager":
                     {
-                        Redirect("/Pages/Views/AdminView.cshtml");
+                        Redirect("/AdminView");
                         break;
                     }
                 case "":
                     {
-                        return View();
+                        Redirect("/Error");
+                        break;
                     }
             }
             return View();
         }
-        /*public IActionResult Index()
+        public IActionResult Index()
         {
             return View();
-        }*/
+        }
     }
 }

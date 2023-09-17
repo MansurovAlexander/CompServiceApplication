@@ -1,8 +1,11 @@
-﻿namespace CompServiceApplication.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CompServiceApplication.Models
 {
     public class Warehouse
-    {
-        public int PartID { get; set; }
+	{
+		[Key]
+		public int PartID { get; set; }
         public string Manufacturer { get; set; }
         public string PartName { get; set; }
         public int PartsCount { get; set; }

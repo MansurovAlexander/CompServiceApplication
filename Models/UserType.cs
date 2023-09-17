@@ -1,8 +1,11 @@
-﻿namespace CompServiceApplication.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CompServiceApplication.Models
 {
     public class UserType
-    {
-        public int UserTypeID { get; set; }
+	{
+		[Key]
+		public int UserTypeID { get; set; }
         public string UserTypeName { get; set; }
     }
 }

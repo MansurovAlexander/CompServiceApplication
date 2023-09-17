@@ -1,0 +1,14 @@
+﻿@model Models.User
+@{
+	ViewData["Title"] = "Авторизация";
+}
+
+<div class="login-container">
+	<form method="post" asp-controller="Authorization" asp-action="Login">
+		<label>Имя пользователя</label>
+		<input asp-for=UserLogin type="text" />
+		<label>Пароль</label>
+		<input asp-for=UserPassword type="password" />
+		<button type="submit">Вход</button>
+	</form>
+</div>

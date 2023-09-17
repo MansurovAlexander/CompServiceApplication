@@ -6,11 +6,11 @@ namespace CompServiceApplication.Classes
     {
         public static string Check(User user, AppDatabaseContext db)
         {
-            foreach (User model in db.Users)
+            foreach (User model in db.Users.ToList())
             {
                 if (model.UserLogin==user.UserLogin && model.UserPassword==HashPasswordHelper.HashPassword(user.UserPassword)) 
                 {
-                    foreach (UserType type in db.UserTypes)
+                    foreach (UserType type in db.UserTypes.ToList())
                     {
                         if (type.UserTypeID == model.UserTypeId)
                             return type.UserTypeName;

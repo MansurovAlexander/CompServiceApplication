@@ -14,9 +14,9 @@ namespace CompServiceApplication
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-            var connectionString = builder.Configuration.GetConnectionString(name: "DefaultCnnection");
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            builder.Services.AddDbContext<AppDatabaseContext>(optionsAction: options =>
+            builder.Services.AddDbContext<AppDatabaseContext>(options =>
             {
                 options.UseNpgsql(connectionString);
             });
@@ -30,8 +30,6 @@ namespace CompServiceApplication
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -39,9 +37,13 @@ namespace CompServiceApplication
 
             app.UseAuthorization();
 
-            app.MapRazorPages();
+            app.MapRazorPages(); 
 
-            app.Run();
+			app.MapControllerRoute(
+				name: "default",
+				pattern: "{controller=Authorization}/{action=Index}/{id?}");
+
+			app.Run();
         }
     }
 }

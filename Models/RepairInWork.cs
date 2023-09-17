@@ -1,8 +1,11 @@
-﻿namespace CompServiceApplication.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CompServiceApplication.Models
 {
     public class RepairInWork
-    {
-        public int RepairInWorkID { get; set; }
+	{
+		[Key]
+		public int RepairInWorkID { get; set; }
         public int RepairID { get; set; }
         public int WorkID { get; set; }
     }

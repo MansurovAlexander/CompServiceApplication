@@ -1,8 +1,11 @@
-﻿namespace CompServiceApplication.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CompServiceApplication.Models
 {
     public class UserInWork
-    {
-        public int UserInWorkID { get; set; }
+	{
+		[Key]
+		public int UserInWorkID { get; set; }
         public int UserID { get; set; }
         public int WorkID { get; set; }
         public DateTime StartDate { get; set; }
