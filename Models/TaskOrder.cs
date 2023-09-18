@@ -1,16 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompServiceApplication.Models
 {
     public class TaskOrder
 	{
 		[Key]
-		public int TaskOrderID { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public string ProblemDescription { get; set; }
-        public decimal? FinallyCost { get; set; }
-        public int UserID { get; set; }
-        public int DeviceID { get; set; }
+		public int taskorderid { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime startdate { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? enddate { get; set; }
+
+        [Column(TypeName = "text")]
+        public string problemdescription { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? finallycost { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int userid { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int deviceid { get; set; }
     }
 }

@@ -1,12 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompServiceApplication.Models
 {
     public class RepairInWork
 	{
 		[Key]
-		public int RepairInWorkID { get; set; }
-        public int RepairID { get; set; }
-        public int WorkID { get; set; }
+		public int repairinworkid { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int repairid { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int workid { get; set; }
     }
 }

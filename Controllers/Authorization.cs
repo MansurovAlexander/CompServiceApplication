@@ -13,7 +13,7 @@ namespace CompServiceApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(User user)
+        public void Login(User user)
         {
             string role = RoleChecker.Check(user, _db).ToLower();
             switch (role)
@@ -39,7 +39,6 @@ namespace CompServiceApplication.Controllers
                         break;
                     }
             }
-            return View();
         }
         public IActionResult Index()
         {

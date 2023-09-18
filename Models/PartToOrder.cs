@@ -1,14 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompServiceApplication.Models
 {
     public class PartToOrder
 	{
 		[Key]
-		public int PartToOrderID { get; set; }
-        public int PurchaseOrderID { get; set; }
-        public int PartID { get; set; }
-        public int PartsCount { get; set; }
-        public decimal TotalCost { get; set; }
+		public int parttoorderid { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int purchaseorderid { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int partid { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int partscount { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal totalcost { get; set; }
     }
 }

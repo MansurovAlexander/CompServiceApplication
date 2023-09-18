@@ -1,14 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompServiceApplication.Models
 {
     public class Warehouse
 	{
 		[Key]
-		public int PartID { get; set; }
-        public string Manufacturer { get; set; }
-        public string PartName { get; set; }
-        public int PartsCount { get; set; }
-        public decimal PartPrice { get; set; }
+		public int partid { get; set; }
+
+        [Column(TypeName = "character varying(50)")]
+        public string manufacturer { get; set; }
+
+        [Column(TypeName = "text")]
+        public string partname { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int partscount { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal partprice { get; set; }
     }
 }

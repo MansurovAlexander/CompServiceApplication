@@ -6,15 +6,15 @@ namespace CompServiceApplication.Models
     public class Device
     {
         [Key]
-        public int DeviceID { get; set; }
+        public int deviceid { get; set; }
 
         [Column(TypeName = "text")]
-        public string Manufacturer { get; set; } = string.Empty;
+        public string manufacturer { get; set; } = string.Empty;
 
 		[Column(TypeName = "text")]
-		public string DeviceDescription { get; set; } = string.Empty;
+		public string devicedescription { get; set; } = string.Empty;
 
 		[Column(TypeName = "text")]
-		public string SerialNumber { get; set; } = string.Empty;
+		public string serialnumber { get; set; } = string.Empty;
 	}
 }

@@ -6,11 +6,12 @@ namespace CompServiceApplication.Models
     public class InWork
     {
         [Key]
-        public int WorkID { get; set; }
+        public int workid { get; set; }
 
         [Column(TypeName = "text")]
-        public string WorkStageDescription { get; set; } = string.Empty;
+        public string workstagedescription { get; set; } = string.Empty;
 
-        public int TaskOrderID { get; set; }
+        [Column(TypeName ="integer")]
+        public int taskorderid { get; set; }
     }
 }

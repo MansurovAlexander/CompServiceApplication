@@ -1,14 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompServiceApplication.Models
 {
     public class UserInWork
 	{
 		[Key]
-		public int UserInWorkID { get; set; }
-        public int UserID { get; set; }
-        public int WorkID { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+		public int userinworkid { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int userid { get; set; }
+
+        [Column(TypeName ="integer")]
+        public int workid { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime startdate { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime enddate { get; set; }
     }
 }

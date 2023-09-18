@@ -14,7 +14,8 @@ namespace CompServiceApplication
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = builder.Configuration.GetConnectionString("NoteConnection");
 
             builder.Services.AddDbContext<AppDatabaseContext>(options =>
             {
