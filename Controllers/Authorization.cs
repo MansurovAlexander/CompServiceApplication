@@ -1,6 +1,7 @@
 ﻿using CompServiceApplication.Classes;
 using CompServiceApplication.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CompServiceApplication.Controllers
 {
@@ -12,16 +13,14 @@ namespace CompServiceApplication.Controllers
             _db = db;
         }
 
-        [HttpPost]
-        public void Login(User user)
+        public IActionResult Login(User user)
         {
             string role = RoleChecker.Check(user, _db).ToLower();
             switch (role)
             {
                 case "admin":
                     {
-                        Redirect("/Views/AdminView");
-                        break;
+                        return Redirect("~/Admin");
                     }
                 case "worker":
                     {
@@ -39,6 +38,7 @@ namespace CompServiceApplication.Controllers
                         break;
                     }
             }
+            return View();
         }
         public IActionResult Index()
         {
