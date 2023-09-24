@@ -22,7 +22,19 @@ namespace CompServiceApplication.Controllers
 			ViewBag.UserTypes = usertypes;
             return View();
 		}
-		public IActionResult Index()
+        public IActionResult CreateTask()
+        {
+            SelectList users = new SelectList((from u in _db.users.ToList() select new
+            {
+                UserID = u.userid,
+                UserData = u.lastname+" "+u.firstname+" "+u.middlename + " "+u.passseries.ToString() +" "+u.passnum.ToString()}),
+                "UserID",
+                "UserData",
+				null);
+            ViewBag.Users = users;
+            return View();
+        }
+        public IActionResult Index()
 		{
 			return View();
 		}

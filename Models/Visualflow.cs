@@ -9,8 +9,9 @@ namespace CompServiceApplication.Models
 		[Key]
 		public int visualflowid { get; set; }
 
+        [NotMapped]
         [Column(TypeName = "bit varying")]
-        public BitArray visualflow { get; set; }
+        public byte[] visualflow { get; set; }
 
         [Column(TypeName ="integer")]
         public int taskorderid { get; set; }

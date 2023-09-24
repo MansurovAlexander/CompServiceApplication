@@ -1,7 +1,7 @@
 ﻿using CompServiceApplication.Classes;
 using CompServiceApplication.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections;
 
 namespace CompServiceApplication.Controllers
 {
@@ -30,6 +30,18 @@ namespace CompServiceApplication.Controllers
             }
             else
                 return Redirect("~/AdminError");
+        }
+        public IActionResult CreateTask(CreateTaskViewModel taskViewModel) 
+        {
+            TaskOrder newTaskOrder = new TaskOrder();
+            Visualflow newVisualFlow= new Visualflow();
+            List<byte[]> imagesToDB=new List<byte[]>();
+            if (taskViewModel.visualflow != null)
+            foreach (var image in taskViewModel.visualflow)
+            {
+                imagesToDB.Add(new BinaryReader(image.OpenReadStream()).ReadBytes((int)image.Length));
+            }
+            return Redirect("~/Admin");
         }
         public User ConvertViewModelToUser(CreateUserViewModel userViewModel)
         {
