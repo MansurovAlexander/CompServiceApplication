@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Npgsql.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CompServiceApplication
 {
@@ -11,18 +14,17 @@ namespace CompServiceApplication
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            var connectionString = builder.Configuration.GetConnectionString("NoteConnection");
-
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDatabaseContext>(options =>
             {
                 options.UseNpgsql(connectionString);
             });
-
-            var app = builder.Build();
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -33,12 +35,12 @@ namespace CompServiceApplication
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapRazorPages(); 
+			app.MapRazorPages(); 
 
 			app.MapControllerRoute(
 				name: "default",

@@ -1,0 +1,31 @@
+﻿@using Models
+@model CreateUserViewModel  
+@{
+    ViewData["Title"] = "Добавление пользователя";
+}
+
+<div class="classic-add-container">
+    <form asp-controller="Create" asp-action="CreateUser">
+        <label>Имя</label>
+        <input asp-for=firstname type="text" />
+        <label>Фамилия</label>
+        <input asp-for=lastname type="text" />
+        <label>Отчество</label>
+        <input asp-for=middlename type="text" />
+        <label>Дата рождения</label>
+        <input asp-for=dateofbirth type="date" />
+        <label>Номер телефона</label>
+        <input asp-for=phonenumber type="tel" pattern="\\+?\\d{1,3}[- ]{0,1}[\\s\\.]{0,1}\\d{1,4}[- ]{0,1}\\d{1,4}[\\s]{0,1}\\d{2,4}" />
+        <label>Серия паспорта</label>
+        <input asp-for=passseries type="text" pattern="[0-9]{4}" />
+        <label>Номер паспорта</label>
+        <input asp-for=passnum type="text" pattern="[0-9]{6}" />
+        <label>Логин</label>
+        <input asp-for=userlogin type="text" />
+        <label>Пароль</label>
+        <input asp-for=userpassword type="text" />
+        <label>Тип пользователя</label>
+        <select asp-for=usertypeid asp-items="ViewBag.UserTypes"></select>
+        <button type="submit">Создать</button>
+    </form>
+</div>

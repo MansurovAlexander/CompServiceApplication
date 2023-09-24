@@ -9,18 +9,20 @@
     <link rel="stylesheet" href="~/CompServiceApplication.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="topnav">
+            <form asp-controller="Authorization" asp-action="Logout">
+                <button type="submit">Выход</button>
+            </form>
+        </div>
+    }
     
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - CompServiceApplication - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

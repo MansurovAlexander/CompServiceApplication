@@ -4,13 +4,13 @@ namespace CompServiceApplication.Classes
 {
     public static class RoleChecker
     {
-        public static string Check(User user, AppDatabaseContext db)
-        {
-            List<User> users=db.users.ToList();
+        public static void Check(UserLoginView user, AppDatabaseContext db)
+        {;
+            user.UserRole = "";
             int roleNumber=0;
             foreach (User model in db.users)
             {
-                if (model.userlogin==user.userlogin && model.userpassword==HashPasswordHelper.HashPassword(user.userpassword)) 
+                if (model.userlogin==user.UserLogin && model.userpassword==HashPasswordHelper.HashPassword(user.UserPassword)) 
                 {
                     roleNumber = model.usertypeid;
                 }
@@ -18,9 +18,8 @@ namespace CompServiceApplication.Classes
             foreach (UserType type in db.usertypes)
             {
                 if (type.usertypeid == roleNumber)
-                    return type.usertypename;
+                    user.UserRole = type.usertypename;
             }
-            return "";
         }
     }
 }
