@@ -11,8 +11,12 @@
         <!--Сделать выпадающий список с поиском-->
         <label>Клиенты</label>
         <select asp-for=userid asp-items="ViewBag.Users"></select>
+        <!--Сделать выпадающий список с поиском-->
+        <label>Техника</label>
+        <select asp-for=deviceid asp-items="ViewBag.Devices"></select>
         <label>Загрузите фотографии техники</label>
-        <input asp-for=visualflow type="file" accept="image/*" multiple=""/>
+        <input asp-for=visualflow/>
+        <span asp-validation-for="visualflow"></span>
         <button type="submit">Создать</button>
     </form>
 </div>

@@ -40,7 +40,7 @@ namespace CompServiceApplication
             app.UseAuthentication();
             app.UseAuthorization();
 
-			app.MapRazorPages(); 
+            app.MapRazorPages();
 
 			app.MapControllerRoute(
 				name: "default",

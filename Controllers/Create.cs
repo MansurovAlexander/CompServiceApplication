@@ -12,34 +12,44 @@ namespace CompServiceApplication.Controllers
         {
             _db = db;
         }
-        public IActionResult CreateDevice(Device newDevice)
+        public async Task<IActionResult> CreateDevice(Device newDevice)
         {
             _db.devices.Add(newDevice);
-            _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
             return Redirect("~/Admin");
         }
-        public IActionResult CreateUser(CreateUserViewModel userViewModel)
+        public async Task<IActionResult> CreateUser(CreateUserViewModel userViewModel)
         {
             User newUser = new User();
             newUser = ConvertViewModelToUser(userViewModel);
             if (newUser != null && ClassicChecks.ValidatePhoneNumber(newUser.phonenumber) && ClassicChecks.IsValidDate(newUser.dateofbirth))
             {
                 _db.users.Add(newUser);
-                _db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
                 return Redirect("~/Admin");
             }
             else
                 return Redirect("~/AdminError");
         }
-        public IActionResult CreateTask(CreateTaskViewModel taskViewModel) 
+        public async Task<IActionResult> CreateTask(CreateTaskViewModel taskViewModel) 
         {
-            TaskOrder newTaskOrder = new TaskOrder();
-            Visualflow newVisualFlow= new Visualflow();
-            List<byte[]> imagesToDB=new List<byte[]>();
-            if (taskViewModel.visualflow != null)
-            foreach (var image in taskViewModel.visualflow)
+            TaskOrder newTaskOrder = new();
+            newTaskOrder.createdate = taskViewModel.startdate;
+            newTaskOrder.problemdescription = taskViewModel.problemdescription;
+            newTaskOrder.userid = taskViewModel.userid;
+            newTaskOrder.deviceid= taskViewModel.deviceid;
+            newTaskOrder.finallycost = 0;
+            _db.taskorders.Add(newTaskOrder);
+            await _db.SaveChangesAsync();
+            var lastTaskID = _db.taskorders.ToList().Last().taskorderid;
+            var byteImages = ImageConverter.ImagesToByte(taskViewModel.visualflow);
+            foreach (byte[]  image in byteImages)
             {
-                imagesToDB.Add(new BinaryReader(image.OpenReadStream()).ReadBytes((int)image.Length));
+                Visualflow newVisualFlow = new();
+                newVisualFlow.visualflow= Convert.ToBase64String(image);
+                newVisualFlow.taskorderid = lastTaskID;
+                _db.visualflows.Add(newVisualFlow);
+                await _db.SaveChangesAsync();
             }
             return Redirect("~/Admin");
         }

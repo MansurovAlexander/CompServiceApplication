@@ -10,8 +10,8 @@ namespace CompServiceApplication.Models
 		public int visualflowid { get; set; }
 
         [NotMapped]
-        [Column(TypeName = "bit varying")]
-        public byte[] visualflow { get; set; }
+        [Column(TypeName = "text")]
+        public string visualflow { get; set; }
 
         [Column(TypeName ="integer")]
         public int taskorderid { get; set; }

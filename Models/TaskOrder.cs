@@ -9,7 +9,7 @@ namespace CompServiceApplication.Models
 		public int taskorderid { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime startdate { get; set; }
+        public DateTime createdate { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? enddate { get; set; }

@@ -1,0 +1,20 @@
+﻿@model List<Models.TaskViewModel>
+@{
+    ViewData["Title"] = "Список задач";
+}
+
+
+<div class="classic-task">
+    @foreach (var task in Model)
+    {
+        <div class="task-inline">
+        <p>@task.problemdescription</p>
+        <p>@task.createdate</p>
+        <p>@task.lastworker</p>
+        @foreach (var image in task.images)
+        {
+            <img src="image"/>
+        }
+        </div>
+    }
+</div>
