@@ -46,16 +46,19 @@ namespace CompServiceApplication.Controllers
         public IActionResult TaskList()
         {
             var taskList=new List<TaskViewModel>();
-            foreach (var task in _db.taskorders)
+            var taskOrders = _db.taskorders.ToList();
+            foreach (var task in taskOrders)
             {
                 var newTask=new TaskViewModel();
                 newTask.taskorderid=task.taskorderid;
                 newTask.createdate = task.createdate;
                 newTask.problemdescription = task.problemdescription;
+                newTask.images = new();
                 foreach (var image in _db.visualflows.Where(p=>p.taskorderid==task.taskorderid))
                 {
-                    newTask.images.Add(ImageConverter.ByteToImage(Convert.FromBase64String(image.visualflow)));
+                    newTask.images.Add(ImageConverter.ByteToImage(image.visualflow));
                 }
+                taskList.Add(newTask);
             }
             return View(taskList);
         }

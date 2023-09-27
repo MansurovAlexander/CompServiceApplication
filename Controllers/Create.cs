@@ -34,7 +34,7 @@ namespace CompServiceApplication.Controllers
         public async Task<IActionResult> CreateTask(CreateTaskViewModel taskViewModel) 
         {
             TaskOrder newTaskOrder = new();
-            newTaskOrder.createdate = taskViewModel.startdate;
+            newTaskOrder.createdate = taskViewModel.createdate;
             newTaskOrder.problemdescription = taskViewModel.problemdescription;
             newTaskOrder.userid = taskViewModel.userid;
             newTaskOrder.deviceid= taskViewModel.deviceid;
@@ -46,7 +46,7 @@ namespace CompServiceApplication.Controllers
             foreach (byte[]  image in byteImages)
             {
                 Visualflow newVisualFlow = new();
-                newVisualFlow.visualflow= Convert.ToBase64String(image);
+                newVisualFlow.visualflow= image;
                 newVisualFlow.taskorderid = lastTaskID;
                 _db.visualflows.Add(newVisualFlow);
                 await _db.SaveChangesAsync();

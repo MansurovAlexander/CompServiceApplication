@@ -4,17 +4,21 @@
 }
 
 
-<div class="classic-task">
+<div>
     @foreach (var task in Model)
     {
-        <div class="task-inline">
-        <p>@task.problemdescription</p>
-        <p>@task.createdate</p>
-        <p>@task.lastworker</p>
-        @foreach (var image in task.images)
-        {
-            <img src="image"/>
-        }
+        <div class>
+            <label>Описание проблемы</label>
+            <p>@task.problemdescription</p>
+            <label>Дата добавления</label>
+            <p>@task.createdate</p>
+            <label>Прошлый рабочий</label>
+            <p>@task.lastworker</p>
+            <label>Состояние техники</label>
+            @foreach (string image in task.images)
+            {
+                <img src=\@image alt="content"/>
+            }
         </div>
     }
 </div>

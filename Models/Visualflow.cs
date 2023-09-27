@@ -9,9 +9,8 @@ namespace CompServiceApplication.Models
 		[Key]
 		public int visualflowid { get; set; }
 
-        [NotMapped]
-        [Column(TypeName = "text")]
-        public string visualflow { get; set; }
+        [Column(TypeName = "bytea")]
+        public byte[] visualflow { get; set; }
 
         [Column(TypeName ="integer")]
         public int taskorderid { get; set; }

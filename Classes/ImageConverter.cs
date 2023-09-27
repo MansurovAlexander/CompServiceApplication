@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace CompServiceApplication.Classes
 {
@@ -14,11 +16,16 @@ namespace CompServiceApplication.Classes
             }
             return result;
         }
-        public static IFormFile ByteToImage(byte[] byteArray)
+        public static string ByteToImage(byte[] byteArray)
         {
-            var fileName = DateTime.UtcNow.ToString();
-            var stream = new MemoryStream(byteArray);
-            return new FormFile(stream, 0, byteArray.Length, "Condition", fileName);
+            string? imageExt="";
+            using (MemoryStream stream = new MemoryStream(byteArray))
+            {
+                System.Drawing.Image image = Image.FromStream(stream);
+                imageExt=ImageCodecInfo.GetImageEncoders().First(codec => codec.FormatID == image.RawFormat.Guid).MimeType;
+            }
+            var b64String = Convert.ToBase64String(byteArray);
+            return "data:"+ imageExt + ";base64," + b64String;
         }
     }
 }
