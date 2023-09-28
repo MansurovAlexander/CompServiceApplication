@@ -56,7 +56,7 @@ namespace CompServiceApplication.Controllers
                 newTask.images = new();
                 foreach (var image in _db.visualflows.Where(p=>p.taskorderid==task.taskorderid))
                 {
-                    newTask.images.Add(ImageConverter.ByteToImage(image.visualflow));
+                    newTask.images.Add(ImageConverter.ByteToImage(image.visualflow, image.imageextension));
                 }
                 taskList.Add(newTask);
             }

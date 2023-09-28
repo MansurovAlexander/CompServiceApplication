@@ -42,15 +42,16 @@ namespace CompServiceApplication.Controllers
             _db.taskorders.Add(newTaskOrder);
             await _db.SaveChangesAsync();
             var lastTaskID = _db.taskorders.ToList().Last().taskorderid;
-            var byteImages = ImageConverter.ImagesToByte(taskViewModel.visualflow);
-            foreach (byte[]  image in byteImages)
+            foreach (var image in taskViewModel.visualflow)
             {
-                Visualflow newVisualFlow = new();
-                newVisualFlow.visualflow= image;
-                newVisualFlow.taskorderid = lastTaskID;
-                _db.visualflows.Add(newVisualFlow);
-                await _db.SaveChangesAsync();
-            }
+                var byteImage = ImageConverter.ImagesToByte(image);
+				Visualflow newVisualFlow = new();
+				newVisualFlow.visualflow = byteImage;
+				newVisualFlow.taskorderid = lastTaskID;
+                newVisualFlow.imageextension = image.ContentType;
+				_db.visualflows.Add(newVisualFlow);
+				await _db.SaveChangesAsync();
+			}
             return Redirect("~/Admin");
         }
         public User ConvertViewModelToUser(CreateUserViewModel userViewModel)

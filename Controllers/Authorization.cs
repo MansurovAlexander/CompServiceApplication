@@ -16,7 +16,33 @@ namespace CompServiceApplication.Controllers
         {
             _db = db;
         }
-
+		public IActionResult RedirectToCorrectView()
+		{
+			var role = User.Claims.Last().Value;
+			switch (role)
+			{
+				case "admin":
+					{
+						return Redirect("~/Admin");
+					}
+				case "worker":
+					{
+						Redirect("/Views/AdminView");
+						break;
+					}
+				case "manager":
+					{
+						Redirect("/AdminView");
+						break;
+					}
+				case "":
+					{
+						Redirect("/Error");
+						break;
+					}
+			}
+			return Redirect("~/Authorization");
+		}
         public async Task<IActionResult> Login(UserLoginView user)
         {
 			RoleChecker.Check(user, _db);
@@ -51,8 +77,8 @@ namespace CompServiceApplication.Controllers
 		{
 			var claims = new List<Claim>
 			{
-				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserLogin),
-			new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserRole)
+				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserLogin.ToLower()),
+				new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserRole.ToLower())
 			};
 			return new ClaimsIdentity(claims, "Undefined");
 		}
