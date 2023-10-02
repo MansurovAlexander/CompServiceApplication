@@ -8,10 +8,10 @@ namespace CompServiceApplication.Models
 		[Key]
 		public int taskorderid { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "timestamp")]
         public DateTime createdate { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "timestamp")]
         public DateTime? enddate { get; set; }
 
         [Column(TypeName = "text")]

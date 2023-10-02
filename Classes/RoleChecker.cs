@@ -12,6 +12,7 @@ namespace CompServiceApplication.Classes
             {
                 if (model.userlogin==user.UserLogin && model.userpassword==HashPasswordHelper.HashPassword(user.UserPassword)) 
                 {
+                    user.UserID = model.userid;
                     roleNumber = model.usertypeid;
                 }
             }
