@@ -7,18 +7,20 @@
 <div>
     @foreach (var task in Model)
     {
-        <div class>
-            <label>Описание проблемы</label>
-            <p>@task.problemdescription</p>
-            <label>Дата добавления</label>
-            <p>@task.createdate</p>
-            <label>Прошлый рабочий</label>
-            <p>@task.lastworker</p>
-            <label>Состояние техники</label>
+        <div class="task-element">
+            <label>Описание проблемы: @task.problemdescription
+            </label>
+            <label>Дата добавления: @task.createdate
+            </label>
+            <label>Прошлый рабочий: @task.lastworker
+            </label>
+        </div>
+        <label class="hidden">
+            Состояние техники
             @foreach (string image in task.images)
             {
-                <img src=@image alt="content" height="100"/>
+                <img src=@image alt="content" height="100" />
             }
-        </div>
+        </label>
     }
 </div>

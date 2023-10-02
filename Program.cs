@@ -18,8 +18,13 @@ namespace CompServiceApplication
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddControllersWithViews()
+    .AddRazorOptions(options =>
+    {
+        options.ViewLocationFormats.Add("/{0}.cshtml");
+    });
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+			var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDatabaseContext>(options =>
             {
                 options.UseNpgsql(connectionString);

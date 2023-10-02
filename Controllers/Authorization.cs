@@ -23,7 +23,7 @@ namespace CompServiceApplication.Controllers
 			{
 				case "admin":
 					{
-						return Redirect("~/Admin");
+						return View("");
 					}
 				case "worker":
 					{
@@ -52,7 +52,7 @@ namespace CompServiceApplication.Controllers
 				{
 					case "admin":
 						{
-							return Redirect("~/Admin");
+							return View("~/Views/Admin/Index.cshtml");
 						}
 					case "worker":
 						{

@@ -2,24 +2,15 @@
 @{
 	ViewData["Title"] = "Админ панель";
 }
-
-<div class="inner">
-	<form asp-controller="Admin" asp-action="CreateUser">
-		<button type="submit">Добавить пользователя</button>
-	</form>
-	</div>
-	<div class="inner">
-	<form asp-controller="Admin" asp-action="CreateDevice">
-		<button type="submit">Добавить устройство</button>
-	</form>
-	</div>
-	<div class="inner">
-	<form asp-controller="Admin" asp-action="CreateTask">
-		<button type="submit">Добавить задачу</button>
-	</form>
+<div class="div-inline">
+	@await Component.InvokeAsync(nameof(Components.CreateUser));
 </div>
-<div class="inner">
-	<form asp-controller="Admin" asp-action="TaskList">
-		<button type="submit">Список задач</button>
-	</form>
+<div class="div-inline">
+	@await Component.InvokeAsync(nameof(Components.CreateDevice));
+</div>
+<div class="div-inline">
+	@await Component.InvokeAsync(nameof(Components.CreateTask));
+</div>
+<div>
+	@await Component.InvokeAsync(nameof(Components.TaskList));
 </div>
