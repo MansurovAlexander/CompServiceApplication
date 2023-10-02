@@ -6,7 +6,7 @@ namespace CompServiceApplication.Classes
     {
         public static bool IsValidDate(DateTime date)
         {
-            if (DateTime.Compare(date, DateTime.UtcNow) < 100 && date < DateTime.UtcNow)
+            if (DateTime.Compare(date, DateTime.UtcNow) < 100 && DateTime.Compare(date, DateTime.UtcNow)>=18 && date < DateTime.UtcNow)
                 return true;
             else return false;
         }
