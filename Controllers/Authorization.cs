@@ -77,7 +77,7 @@ namespace CompServiceApplication.Controllers
 		{
 			var claims = new List<Claim>
 			{
-				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserLogin.ToLower()),
+				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserID.ToString()),
 				new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserRole.ToLower())
 			};
 			return new ClaimsIdentity(claims, "Undefined");

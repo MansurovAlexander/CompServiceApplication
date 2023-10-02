@@ -6,7 +6,7 @@ namespace CompServiceApplication
     public class AppDatabaseContext:DbContext
     {
         public DbSet<Device> devices {  get; set; }
-        public DbSet<InWork> inworks { get; set; }
+        public DbSet<InWork> inwork { get; set; }
 		public DbSet<PartToDevice> parttodevice { get; set; }
 		public DbSet<PartToOrder> partstoorder { get; set; }
 		public DbSet<PurchaseOrder> purchaseorder { get; set; }

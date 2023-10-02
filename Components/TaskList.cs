@@ -17,16 +17,20 @@ namespace CompServiceApplication.Components
 			var taskOrders = _db.taskorders.ToList();
 			foreach (var task in taskOrders)
 			{
-				var newTask = new TaskViewModel();
-				newTask.taskorderid = task.taskorderid;
-				newTask.createdate = task.createdate;
-				newTask.problemdescription = task.problemdescription;
-				newTask.images = new();
-				foreach (var image in _db.visualflows.Where(p => p.taskorderid == task.taskorderid))
+                var inWork=_db.inwork.Where(w=>w.taskorderid==task.taskorderid).ToList();
+				if (inWork.Count==0)
 				{
-					newTask.images.Add(ImageConverter.ByteToImage(image.visualflow, image.imageextension));
+					var newTask = new TaskViewModel();
+					newTask.taskorderid = task.taskorderid;
+					newTask.createdate = task.createdate;
+					newTask.problemdescription = task.problemdescription;
+					newTask.images = new();
+					foreach (var image in _db.visualflows.Where(p => p.taskorderid == task.taskorderid))
+					{
+						newTask.images.Add(ImageConverter.ByteToImage(image.visualflow, image.imageextension));
+					}
+					taskList.Add(newTask);
 				}
-				taskList.Add(newTask);
 			}
 			return View("\\TaskList.cshtml", taskList);
 		}
