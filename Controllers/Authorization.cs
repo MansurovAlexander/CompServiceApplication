@@ -43,33 +43,32 @@ namespace CompServiceApplication.Controllers
 			}
 			return Redirect("~/Authorization");
 		}
-        public async Task<IActionResult> Login(UserLoginView user)
-        {
+		public async Task<IActionResult> Login(UserLoginView user)
+		{
 			RoleChecker.Check(user, _db);
-				var result = Authentification(user);
-				await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(result));
-				switch (user.UserRole.ToLower())
-				{
-					case "admin":
-						{
-							return View("~/Views/Admin/Index.cshtml");
-						}
-					case "worker":
-						{
-							Redirect("/Views/AdminView");
-							break;
-						}
-					case "manager":
-						{
-							Redirect("/AdminView");
-							break;
-						}
-					case "":
-						{
-							Redirect("/Error");
-							break;
-						}
-				}
+			var result = Authentification(user);
+			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(result));
+			switch (user.UserRole.ToLower())
+			{
+				case "admin":
+					{
+						return View("~/Views/Admin/Index.cshtml");
+					}
+				case "worker":
+					{
+						return View("~/Views/WorkPanel/Index.cshtml");
+					}
+				case "manager":
+					{
+						Redirect("/AdminView");
+						break;
+					}
+				case "":
+					{
+						Redirect("/Error");
+						break;
+					}
+			}
 			return View();
 		}
 
