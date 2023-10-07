@@ -13,6 +13,6 @@
 	@await Component.InvokeAsync(nameof(Components.CreateTask));
 </div>
 <div>
-	@await Component.InvokeAsync(nameof(Components.TaskList));
+	@await Component.InvokeAsync(nameof(Components.TaskList), false);
 </div>
 </body>

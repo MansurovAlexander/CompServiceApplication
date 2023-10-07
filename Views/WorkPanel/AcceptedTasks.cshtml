@@ -1,5 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Models.TaskViewModel>
 @{
+    ViewData["Title"] = "Принятые задачи";
 }
+<body>
+    <div>
+        @await Component.InvokeAsync(nameof(Components.TaskList), true);
+    </div>
+</body>

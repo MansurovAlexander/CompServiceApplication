@@ -11,7 +11,7 @@ namespace CompServiceApplication.Controllers
             _db = db;
         }
         [HttpPost]
-        public IActionResult TakeTask(int taskid)
+        public async Task<IActionResult> TakeTask(int taskid)
         {
             if (User.IsInRole("worker") || User.IsInRole("admin"))
             {
@@ -19,14 +19,16 @@ namespace CompServiceApplication.Controllers
                 newWorkAccept.taskorderid = taskid;
                 newWorkAccept.workstagedescription = "Taken";
                 _db.inwork.Add(newWorkAccept);
-                _db.Update(newWorkAccept);
+                await _db.SaveChangesAsync();
                 var userInWork = new UserInWork();
                 userInWork.startdate= DateTime.Now;
                 userInWork.userid = Int32.Parse(User.Identity.Name);
-                userInWork.workid = _db.inwork.Last().workid;
+                userInWork.workid = _db.inwork.ToList().Last().workid;
+                _db.userinwork.Add(userInWork);
+                await _db.SaveChangesAsync();
                 return View();
             }
-            return View();
+            return View("\\TaskList.cshtml");
         }
         public IActionResult Index()
         {

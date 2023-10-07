@@ -8,5 +8,6 @@
 		public string devicedescription { get; set; }
 		public string? lastworker {  get; set; }
 		public List<string> images { get; set; }
+		public bool taken { get; set; }
 	}
 }

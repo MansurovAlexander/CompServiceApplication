@@ -43,8 +43,10 @@ input[type="password"] {
     border-radius: 4px;
 }
 button {
-    width: 100%;
+    vertical-align: central;
+    width: 95%;
     padding: 10px;
+    margin: 5px 5px 5px 5px;
     font-size: 16px;
     background-color: #4caf50;
     color: #fff;
@@ -79,8 +81,7 @@ button:hover {
     width:100%;
     display: inline;
     text-align: center;
-    margin-left: 10px;
-    margin-right:10px;
+    margin: 20px 10px 20px 10px;
     background-color: #fff;
     padding: 30px;
     border: 1px solid;
@@ -97,4 +98,13 @@ button:hover {
         display: inline;
         margin-bottom: 10px;
         font-size: 16px;
+    }
+header{
+    background-color: black;
+    margin: 0px 0px 10px 0px;
+    display: inline;
+}
+    header button {
+        display: inline;
+        margin: 5px 5px 5px 5px;
     }

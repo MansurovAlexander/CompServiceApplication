@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/CompServiceApplication.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="topnav">
+    <header>
         @if (User.Identity.IsAuthenticated)
         {
             @if (User.Claims.ToList().Last().Value=="worker")
