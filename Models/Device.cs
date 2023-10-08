@@ -15,6 +15,6 @@ namespace CompServiceApplication.Models
 		public string devicedescription { get; set; } = string.Empty;
 
 		[Column(TypeName = "text")]
-		public string serialnumber { get; set; } = string.Empty;
+		public string model { get; set; } = string.Empty;
 	}
 }

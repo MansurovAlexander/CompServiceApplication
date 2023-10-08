@@ -54,6 +54,26 @@ namespace CompServiceApplication.Controllers
 			}
             return Redirect("~/Admin");
         }
+        public async Task<IActionResult> CreatePart(CreatePartViewModel partViewModel)
+        {
+            Warehouse newPart = new();
+            newPart.manufacturer = partViewModel.manufacturer;
+            newPart.partname = partViewModel.partname;
+            newPart.partscount= int.Parse(partViewModel.partscount);
+            newPart.partcost = decimal.Parse(partViewModel.partcost);
+            _db.warehouse.Add(newPart);
+            await _db.SaveChangesAsync();
+            int partid=_db.warehouse.ToList().Last().partid;
+            foreach (var device in partViewModel.compatibleDevices)
+            {
+                PartToDevice partToDevice = new();
+                partToDevice.partid = partid;
+                partToDevice.deviceid = device;
+                _db.parttodevice.Add(partToDevice);
+               _db.SaveChanges();
+            }
+            return View();
+        }
         public User ConvertViewModelToUser(CreateUserViewModel userViewModel)
         {
             User result = new User();

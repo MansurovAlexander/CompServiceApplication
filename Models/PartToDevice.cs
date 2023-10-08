@@ -7,11 +7,7 @@ namespace CompServiceApplication.Models
 	{
 		[Key]
 		public int parttodevice { get; set; }
-
-        [Column(TypeName ="integer")]
         public int partid { get; set; }
-
-        [Column(TypeName ="integer")]
         public int deviceid { get; set; }
     }
 }

@@ -18,6 +18,6 @@ namespace CompServiceApplication.Models
         public int partscount { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal partprice { get; set; }
+        public decimal partcost { get; set; }
     }
 }

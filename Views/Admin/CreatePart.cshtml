@@ -1,0 +1,20 @@
+﻿@model Models.CreatePartViewModel
+@{
+    ViewData["Title"] = "Добавление детали";
+}
+<div class="classic-add-container">
+    <form asp-controller="Create" asp-action="CreatePart" enctype="multipart/form-data">
+        <label>Производитель</label>
+        <input asp-for=manufacturer type="text" />
+        <label>Описание</label>
+        <input class="big-description" asp-for=partname type="text" />
+        <label>Количество на складе</label>
+        <input asp-for=partscount type="text"/>
+        <label>Стоимость одной детали</label>
+        <input asp-for="partcost" type="text" />
+        <!--Сделать выпадающий список с поиском-->
+        <label>Совместимые устройства</label>
+        <select multiple asp-for=compatibleDevices asp-items="ViewBag.Devices" placeholder="select members"></select>
+        <button type="submit">Создать</button>
+    </form>
+</div>

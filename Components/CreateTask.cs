@@ -24,7 +24,7 @@ namespace CompServiceApplication.Components
 												select new
 												{
 													DeviceID = d.deviceid,
-													DeviceData = d.manufacturer + " " + d.serialnumber + " " + d.devicedescription
+													DeviceData = d.manufacturer + " " + d.model + " " + d.devicedescription
 												},
 				"DeviceID",
 				"DeviceData",

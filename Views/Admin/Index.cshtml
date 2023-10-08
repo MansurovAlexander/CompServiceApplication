@@ -11,7 +11,10 @@
 </div>
 <div class="div-inline">
 	@await Component.InvokeAsync(nameof(Components.CreateTask));
-</div>
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.CreatePart));
+	</div>
 <div>
 	@await Component.InvokeAsync(nameof(Components.TaskList), false);
 </div>
