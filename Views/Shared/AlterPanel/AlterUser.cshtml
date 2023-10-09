@@ -1,13 +1,12 @@
-﻿@using Models
-@model CreateUserViewModel  
+﻿@model Models.User
 @{
-    ViewData["Title"] = "Добавление пользователя";
+    ViewData["Title"] = "Изменение пользователя";
 }
-
 <div class="classic-add-container">
-    <form asp-controller="Create" asp-action="CreateUser">
+    <form asp-controller="AlterPanel" asp-action="AlterUser">
+        <select asp-for=userid asp-items="ViewBag.Users"></select>
         <label>Имя</label>
-        <input asp-for=firstname type="text" />
+        <input asp-for=firstname type="text"/>
         <label>Фамилия</label>
         <input asp-for=lastname type="text" />
         <label>Отчество</label>
@@ -26,6 +25,6 @@
         <input asp-for=userpassword type="text" />
         <label>Тип пользователя</label>
         <select asp-for=usertypeid asp-items="ViewBag.UserTypes"></select>
-        <button type="submit">Создать</button>
+        <button type="submit">Сохранить</button>
     </form>
 </div>

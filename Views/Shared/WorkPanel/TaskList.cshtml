@@ -7,7 +7,7 @@
 <div>
     @foreach (var task in Model)
     {
-        <form asp-controller="Task" asp-action="TakeTask" method="post">
+        <form asp-controller="WorkPanel" asp-action="TakeTask" method="post">
         <div class="task-element">
             <label>Описание проблемы: @task.problemdescription
             </label>
@@ -23,7 +23,12 @@
                 <img src=@image alt="content" height="100" />
             }
             </label>
-            @if (task.taken) ;
+            @if (task.taken)
+            {
+                <input type="checkbox" class="dropbtn" value="Взять детали со склада" />
+                <div id="myDropdown" onclick="myFunction()" class="dropdown-content">
+                </div>
+            }
             else
             {
                 <button name="taskid" value=@task.taskorderid type="submit">Взять задачу</button>

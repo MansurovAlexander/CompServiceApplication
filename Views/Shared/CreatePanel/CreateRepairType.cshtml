@@ -1,0 +1,13 @@
+﻿@model CompServiceApplication.Models.RepairType
+@{
+    ViewData["Title"] = "добавление типа работы";
+}
+<body>
+    <form asp-controller="CreatePanel" asp-action="CreateRepairType">
+        <label>Описание типа работы</label>
+        <input asp-for="repairdescription" type="text" />
+        <label>Стоимость ремонта</label>
+        <input asp-for="repaircost" type="number" />
+        <button type="submit">Добавить</button>
+    </form>
+</body>

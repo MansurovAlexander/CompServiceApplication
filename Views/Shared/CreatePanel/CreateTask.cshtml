@@ -3,7 +3,7 @@
     ViewData["Title"] = "Добавление задачи";
 }
 <div class="classic-add-container">
-    <form asp-controller="Create" asp-action="CreateTask" enctype="multipart/form-data">
+    <form asp-controller="CreatePanel" asp-action="CreateTask" enctype="multipart/form-data">
         <label>Дата добавления</label>
         <input asp-for=createdate type="datetime-local" />
         <label>Описание проблемы</label>

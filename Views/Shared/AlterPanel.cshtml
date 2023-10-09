@@ -1,0 +1,21 @@
+﻿@model Models.User
+@{
+	ViewData["Title"] = "Панель редактирования";
+}
+<body>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterUser))
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterDevice))
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterRepairType))
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterTask))
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterPart))
+	</div>
+</body>

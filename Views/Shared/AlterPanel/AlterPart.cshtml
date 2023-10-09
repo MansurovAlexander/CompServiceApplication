@@ -3,7 +3,8 @@
     ViewData["Title"] = "Добавление детали";
 }
 <div class="classic-add-container">
-    <form asp-controller="Create" asp-action="CreatePart" enctype="multipart/form-data">
+    <form asp-controller="AlterPanel" asp-action="AlterPart" enctype="multipart/form-data">
+        <select asp-for=partid asp-items="ViewBag.Parts"></select>
         <label>Производитель</label>
         <input asp-for=manufacturer type="text" />
         <label>Описание</label>
@@ -15,6 +16,6 @@
         <!--Сделать выпадающий список с поиском-->
         <label>Совместимые устройства</label>
         <select multiple asp-for=compatibleDevices asp-items="ViewBag.Devices" placeholder="select members"></select>
-        <button type="submit">Создать</button>
+        <button type="submit">Обновить</button>
     </form>
 </div>

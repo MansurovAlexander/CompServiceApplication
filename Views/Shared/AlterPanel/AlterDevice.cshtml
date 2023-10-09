@@ -1,0 +1,14 @@
+﻿@model Models.Device
+
+<div class="classic-add-container">
+    <form asp-controller="AlterPanel" asp-action="AlterDevice">
+        <select asp-for=deviceid asp-items="ViewBag.Devices"></select>
+        <label>Производитель</label>
+        <input asp-for=manufacturer type="text" />
+        <label>Модель</label>
+        <input asp-for=model type="text" />
+        <label>Описание</label>
+        <input asp-for=devicedescription type="text" />
+        <button type="submit">Обновить</button>
+    </form>
+</div>

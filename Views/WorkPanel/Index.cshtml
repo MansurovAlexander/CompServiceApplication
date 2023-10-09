@@ -1,9 +1,0 @@
-﻿@model Models.User
-@{
-	ViewData["Title"] = "Открытые задачи";
-}
-<body>
-<div>
-	@await Component.InvokeAsync(nameof(Components.TaskList), false);
-</div>
-</body>

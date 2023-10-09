@@ -5,10 +5,10 @@ using System.Collections;
 
 namespace CompServiceApplication.Controllers
 {
-    public class Create : Controller
+    public class CreatePanel : Controller
     {
         AppDatabaseContext _db;
-        public Create(AppDatabaseContext db)
+        public CreatePanel(AppDatabaseContext db)
         {
             _db = db;
         }
@@ -16,20 +16,15 @@ namespace CompServiceApplication.Controllers
         {
             _db.devices.Add(newDevice);
             await _db.SaveChangesAsync();
-            return Redirect("~/Admin");
+            return View("\\CreatePanel");
         }
         public async Task<IActionResult> CreateUser(CreateUserViewModel userViewModel)
         {
             User newUser = new User();
             newUser = ConvertViewModelToUser(userViewModel);
-            if (newUser != null && ClassicChecks.ValidatePhoneNumber(newUser.phonenumber) && ClassicChecks.IsValidDate(newUser.dateofbirth))
-            {
-                _db.users.Add(newUser);
-                await _db.SaveChangesAsync();
-                return Redirect("~/Admin");
-            }
-            else
-                return Redirect("~/AdminError");
+            _db.users.Add(newUser);
+            await _db.SaveChangesAsync();
+            return View("\\CreatePanel");
         }
         public async Task<IActionResult> CreateTask(CreateTaskViewModel taskViewModel) 
         {
@@ -51,8 +46,8 @@ namespace CompServiceApplication.Controllers
                 newVisualFlow.imageextension = image.ContentType;
 				_db.visualflows.Add(newVisualFlow);
 				await _db.SaveChangesAsync();
-			}
-            return Redirect("~/Admin");
+            }
+            return View("\\CreatePanel");
         }
         public async Task<IActionResult> CreatePart(CreatePartViewModel partViewModel)
         {
@@ -70,9 +65,15 @@ namespace CompServiceApplication.Controllers
                 partToDevice.partid = partid;
                 partToDevice.deviceid = device;
                 _db.parttodevice.Add(partToDevice);
-               _db.SaveChanges();
+                _db.SaveChanges();
             }
-            return View();
+            return View("\\CreatePanel");
+        }
+        public async Task<IActionResult> CreateRepairType(RepairType repairType)
+        {
+            _db.repairtypes.Add(repairType);
+            await _db.SaveChangesAsync();
+            return View("\\CreatePanel");
         }
         public User ConvertViewModelToUser(CreateUserViewModel userViewModel)
         {

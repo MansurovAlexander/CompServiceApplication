@@ -12,9 +12,10 @@
     <header>
         @if (User.Identity.IsAuthenticated)
         {
-            @if (User.Claims.ToList().Last().Value=="worker")
+            string role = User.Claims.ToList().Last().Value;
+            @if (role=="worker")
             {
-                <form asp-controller="WorkPanel" asp-action="Index">
+                <form asp-controller="WorkPanel" asp-action="WorkerTaskList">
                     <button type="submit">Открытые заказы</button>
                 </form>
                 <form asp-controller="WorkPanel" asp-action="AcceptedTasks">
@@ -27,9 +28,15 @@
                     <button type="submit">Выход</button>
                 </form>
             }
-            else
+            else if (role=="admin")
             {
-            <form asp-controller="Authorization" asp-action="Logout">
+                <form asp-controller="Admin" asp-action="CreatePanel">
+                    <button type="submit">Панель создания</button>
+                </form>
+                <form asp-controller="Admin" asp-action="AlterPanel">
+                    <button type="submit">Панель редактирования</button>
+                </form>
+                <form asp-controller="Authorization" asp-action="Logout">
                     <button type="submit">Выход</button>
                 </form>
             }

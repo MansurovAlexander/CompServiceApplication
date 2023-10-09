@@ -1,0 +1,23 @@
+﻿@model Models.CreateTaskViewModel
+@{
+    ViewData["Title"] = "Добавление задачи";
+}
+<div class="classic-add-container">
+    <form asp-controller="AlterPanel" asp-action="AlterTask" enctype="multipart/form-data">
+        <select asp-for=taskorderid asp-items=ViewBag.Tasks></select>
+        <label>Дата добавления</label>
+        <input asp-for=createdate type="datetime-local" />
+        <label>Описание проблемы</label>
+        <input class="big-description" asp-for=problemdescription type="text" />
+        <!--Сделать выпадающий список с поиском-->
+        <label>Клиенты</label>
+        <select asp-for=userid asp-items="ViewBag.Users"></select>
+        <!--Сделать выпадающий список с поиском-->
+        <label>Техника</label>
+        <select asp-for=deviceid asp-items="ViewBag.Devices"></select>
+        <label>Загрузите фотографии техники</label>
+        <input asp-for=visualflow/>
+        <span asp-validation-for="visualflow"></span>
+        <button type="submit">Обновить</button>
+    </form>
+</div>

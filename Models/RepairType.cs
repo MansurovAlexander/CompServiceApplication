@@ -6,12 +6,12 @@ namespace CompServiceApplication.Models
     public class RepairType
 	{
 		[Key]
-		public int repairtypeid { get; set; }
+		public int repairid { get; set; }
 
         [Column(TypeName ="text")]
         public string repairdescription { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal repairprice { get; set; }
+        public decimal repaircost { get; set; }
     }
 }

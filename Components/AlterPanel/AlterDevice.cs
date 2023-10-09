@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CompServiceApplication.Components
+namespace CompServiceApplication.Components.AlterPanel
 {
-    public class CreatePart:ViewComponent
+    public class AlterDevice : ViewComponent
     {
-        AppDatabaseContext _db;
-        public CreatePart(AppDatabaseContext db)
-        { _db = db; }
+		AppDatabaseContext _db;
+		public AlterDevice(AppDatabaseContext db)
+		{
+			_db = db;
+		}
         public async Task<IViewComponentResult> InvokeAsync()
         {
 			SelectList devices = new SelectList(from d in _db.devices.ToList()
@@ -20,7 +22,7 @@ namespace CompServiceApplication.Components
 				"DeviceData",
 				null);
 			ViewBag.Devices = devices;
-			return View("\\CreatePart.cshtml");
+			return View("AlterPanel\\AlterDevice.cshtml");
         }
     }
 }

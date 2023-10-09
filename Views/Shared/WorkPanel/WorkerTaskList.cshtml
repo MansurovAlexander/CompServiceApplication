@@ -1,0 +1,9 @@
+﻿@model List<Models.TaskViewModel>
+@{
+    ViewData["Title"] = "Принятые задачи";
+}
+<body>
+    <div>
+        @await Component.InvokeAsync(nameof(Components.TaskList), false);
+    </div>
+</body>

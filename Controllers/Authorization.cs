@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
+using System.Security.Principal;
 
 namespace CompServiceApplication.Controllers
 {
@@ -48,28 +49,7 @@ namespace CompServiceApplication.Controllers
 			RoleChecker.Check(user, _db);
 			var result = Authentification(user);
 			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(result));
-			switch (user.UserRole.ToLower())
-			{
-				case "admin":
-					{
-						return View("~/Views/Admin/Index.cshtml");
-					}
-				case "worker":
-					{
-						return View("~/Views/WorkPanel/Index.cshtml");
-					}
-				case "manager":
-					{
-						Redirect("/AdminView");
-						break;
-					}
-				case "":
-					{
-						Redirect("/Error");
-						break;
-					}
-			}
-			return View();
+			return View("Index");
 		}
 
 		private ClaimsIdentity Authentification(UserLoginView user)
@@ -85,12 +65,12 @@ namespace CompServiceApplication.Controllers
 		public async Task<IActionResult> LogOut()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-			return RedirectToAction("Index", "Authorization");
+            HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
+            return View("\\Login");
 		}
-
 		public IActionResult Index()
         {
-            return View();
+            return View("\\Login");
         }
     }
 }

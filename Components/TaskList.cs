@@ -33,7 +33,7 @@ namespace CompServiceApplication.Components
 						taskList.Add(newTask);
 					}
 				}
-				return View("\\TaskList.cshtml", taskList);
+				return View("TaskList.cshtml", taskList);
 			}
 			else
 			{
@@ -64,7 +64,7 @@ namespace CompServiceApplication.Components
 					}
 					taskList.Add(newTask);
 				}
-                return View("\\TaskList.cshtml", taskList);
+                return View("TaskList.cshtml", taskList);
             }
 		}
 	}

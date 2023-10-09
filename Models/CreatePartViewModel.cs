@@ -5,6 +5,7 @@ namespace CompServiceApplication.Models
 {
     public class CreatePartViewModel
     {
+        public int partid { get; set; }
         public string manufacturer { get; set; }
         public string partname { get; set; }
         public string partscount { get; set; }

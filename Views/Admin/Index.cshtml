@@ -1,21 +1,67 @@
 ﻿@model Models.User
-@{
-	ViewData["Title"] = "Админ панель";
+@switch(User.Claims.ToList().Last().Value.ToString().ToLower())
+	{
+		case "admin":
+		{
+			{
+				ViewData["Title"] = "Админ панель";
+			}
+			<body>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreateUser));
+				</div>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreateDevice));
+				</div>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreateTask));
+				</div>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreatePart));
+				</div>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreateRepairType));
+				</div>
+				<div>
+					@await Component.InvokeAsync(nameof(Components.TaskList), false);
+				</div>
+			</body>
+			break;
+		}
+	case "worker":
+		{
+			{
+				ViewData["Title"] = "Админ панель";
+			}
+			<body>
+				<div>
+					@await Component.InvokeAsync(nameof(Components.TaskList), false);
+				</div>
+			</body>
+			break;
+		}
+	case "manager":
+		{
+			<body>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreateUser));
+				</div>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreateDevice));
+				</div>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreateTask));
+				</div>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreatePart));
+				</div>
+				<div class="div-inline">
+					@await Component.InvokeAsync(nameof(Components.CreateRepairType));
+				</div>
+				<div>
+					@await Component.InvokeAsync(nameof(Components.TaskList), false);
+				</div>
+			</body>
+			break;
+		}
 }
-<body>
-<div class="div-inline">
-	@await Component.InvokeAsync(nameof(Components.CreateUser));
-</div>
-<div class="div-inline">
-	@await Component.InvokeAsync(nameof(Components.CreateDevice));
-</div>
-<div class="div-inline">
-	@await Component.InvokeAsync(nameof(Components.CreateTask));
-	</div>
-	<div class="div-inline">
-		@await Component.InvokeAsync(nameof(Components.CreatePart));
-	</div>
-<div>
-	@await Component.InvokeAsync(nameof(Components.TaskList), false);
-</div>
-</body>

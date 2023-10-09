@@ -1,0 +1,21 @@
+﻿@model Models.User
+@{
+		ViewData["Title"] = "Панель создания";
+}
+<body>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateUser))
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateDevice))
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateTask))
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.CreatePanel.CreatePart))
+	</div>
+	<div class="div-inline">
+		@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateRepairType))
+	</div>
+</body>
