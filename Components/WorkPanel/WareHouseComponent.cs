@@ -45,7 +45,7 @@ namespace CompServiceApplication.Components.WorkPanel
                                              null
                                              );
             ViewBag.Tasks = tasks;
-            return View("WorkPanel\\WareHouse.cshtml");
+            return View("\\WareHouse.cshtml");
         }
     }
 }

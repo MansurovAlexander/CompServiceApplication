@@ -15,14 +15,28 @@ namespace CompServiceApplication.Controllers
         {
             return View("WorkPanel\\WorkerTaskList");
         }
-        public async Task<IActionResult> TakeParts(Warehouse part)//сделать триггер на проверку количества деталей
+        public async Task<IActionResult> TakeParts(WareHouseViewModel parts)//сделать триггер на проверку количества деталей
         {
-            int partId = part.partid, partsCount = part.partscount;
-            Models.Warehouse updateStr = _db.warehouse.First(p => p.partid == partId);
-            updateStr.partscount -= partsCount;
-            _db.warehouse.Update(updateStr);
-            await _db.SaveChangesAsync();
-            return WareHouse();
+            foreach (var part in parts.partid)
+            {
+                int partId = part, partsCount = parts.partscount;
+                Models.Warehouse updateStr = _db.warehouse.First(p => p.partid == partId);
+                updateStr.partscount -= partsCount;
+                _db.warehouse.Update(updateStr);
+                await _db.SaveChangesAsync();
+                int workID = _db.inwork.First(w => w.taskorderid == parts.taskorderid).workid;
+                Models.UsedPart partsInWork = new UsedPart();
+                partsInWork.partid = partId;
+                partsInWork.usedpartscount=partsCount;
+                _db.usedparts.Add(partsInWork);
+                await _db.SaveChangesAsync();
+                Models.UsedPartsInWork usedPartsInWork = new UsedPartsInWork();
+                usedPartsInWork.workid = workID;
+                usedPartsInWork.usedpartid = _db.usedparts.Last().usedpartid;
+                _db.usedpartsinwork.Add(usedPartsInWork);
+                await _db.SaveChangesAsync();
+            }
+            return View("WorkPanel\\AcceptedTasks");
         }
         /*public Task<IActionResult> PlaceOrder(Warehouse orderedPart)//попробовать сделать заказ на разные виды деталей
         {

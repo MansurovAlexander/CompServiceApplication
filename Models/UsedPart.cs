@@ -9,10 +9,10 @@ namespace CompServiceApplication.Models
 		public int usedpartid { get; set; }
 
         [Column(TypeName ="integer")]
-        public int usedpartcount { get; set; }
+        public int usedpartscount { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal usedpartprice { get; set; }
+        public decimal totalcost { get; set; }
 
         [Column(TypeName ="integer")]
         public int partid { get; set; }

@@ -9,6 +9,6 @@ namespace CompServiceApplication.Models
         public string partname { get; set; }
         public int partscount { get; set; }
         public decimal partcost { get; set; }
-        public int workid { get; set; }
+        public int taskorderid { get; set; }
     }
 }

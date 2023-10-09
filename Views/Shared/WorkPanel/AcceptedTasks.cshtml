@@ -6,4 +6,7 @@
     <div>
         @await Component.InvokeAsync(nameof(Components.TaskList), true);
     </div>
+    <div>
+        @await Component.InvokeAsync(nameof(Components.WorkPanel.WareHouseComponent));
+    </div>
 </body>

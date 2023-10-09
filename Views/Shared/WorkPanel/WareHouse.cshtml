@@ -1,32 +1,17 @@
 ﻿@model Models.WareHouseViewModel
+@{
+    ViewData["Title"] = "Склад";
+}
 <label>Склад</label>
 <div class="classic-add-container">
-        <label>Производитель</label>
-        <input asp-for=manufacturer type="text" />
-        <label>Описание</label>
-        <input class="big-description" asp-for=partname type="text" />
-        <label>Количество на складе</label>
-        <input asp-for=partscount type="text" />
-        <label>Стоимость одной детали</label>
-        <input asp-for="partcost" type="text" />
-        <!--Сделать выпадающий список с поиском-->
-        <label>Совместимые устройства</label>
-        <select multiple asp-for=compatibleDevices asp-items="ViewBag.Devices" placeholder="select members"></select>
-        <button type="submit">Создать</button>
+    <form asp-controller="WorkPanel" asp-action="TakeParts">
+        <label>Тип детали:</label>
+        <select multiple asp-for=partid asp-items="ViewBag.Parts" placeholder="select members"></select>
+        <label>Выбор ремонта:</label>
+        <select asp-for=taskorderid asp-items="ViewBag.Tasks" placeholder="select members"></select>
+        <lable>Количество:</lable>
+        <input asp-for=partscount type="number" />
+        <button type="submit">Взять со склада</button>
+    </form>
 </div>
     
-    /*
-    <label>@part.Value</label>
-    <label>@part.Text</label>
-    <label>Взять со склада</label>
-    <form asp-controller="WorkPanel" asp-action="TakeParts">
-    <input asp-for="partid" hidden value="@part.Value"/>
-    <input asp-for="partscount" type="number"/>
-        <button type="submit">Подать заявку</button>
-    </form>
-    <label>Заказать</label>
-    <form asp-controller="WorkPanel" asp-action="PlaceOrder">
-        <input asp-for="partid" hidden value="@part.Value" />
-        <input asp-for="partscount" type="number" />
-        <button type="submit">Подать заявку</button>
-    </form>*/
