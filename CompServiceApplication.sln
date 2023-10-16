@@ -5,6 +5,14 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompServiceApplication", "CompServiceApplication.csproj", "{0AD88029-B038-4F65-BBC1-B2F27F42A920}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{7A66C705-D02F-47F2-BA52-597895B15B0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompService.Domain", "..\CompService.Domain\CompService.Domain.csproj", "{4D73F2F1-9BD6-4A1C-9750-67E30DCC6567}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{43D091BE-77FD-44F8-92F3-D0864FA222F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompService.DAL", "..\CompService.DAL\CompService.DAL.csproj", "{40E1701E-CB0D-47A6-B1D1-9360EC4FF8E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +23,21 @@ Global
 		{0AD88029-B038-4F65-BBC1-B2F27F42A920}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AD88029-B038-4F65-BBC1-B2F27F42A920}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AD88029-B038-4F65-BBC1-B2F27F42A920}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D73F2F1-9BD6-4A1C-9750-67E30DCC6567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D73F2F1-9BD6-4A1C-9750-67E30DCC6567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D73F2F1-9BD6-4A1C-9750-67E30DCC6567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D73F2F1-9BD6-4A1C-9750-67E30DCC6567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40E1701E-CB0D-47A6-B1D1-9360EC4FF8E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40E1701E-CB0D-47A6-B1D1-9360EC4FF8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40E1701E-CB0D-47A6-B1D1-9360EC4FF8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40E1701E-CB0D-47A6-B1D1-9360EC4FF8E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4D73F2F1-9BD6-4A1C-9750-67E30DCC6567} = {7A66C705-D02F-47F2-BA52-597895B15B0F}
+		{40E1701E-CB0D-47A6-B1D1-9360EC4FF8E8} = {43D091BE-77FD-44F8-92F3-D0864FA222F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33277979-473D-40CF-8870-3AC1C6EAA5F5}

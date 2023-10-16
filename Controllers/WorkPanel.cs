@@ -95,6 +95,7 @@ namespace CompServiceApplication.Controllers
             repairinwork.repairid=repairid;
             _db.repairinwork.Add(repairinwork);
             await _db.SaveChangesAsync();
+            return View("WorkPanel\\AcceptedTasks");
         }
         public IActionResult AcceptedTasks()
         {
