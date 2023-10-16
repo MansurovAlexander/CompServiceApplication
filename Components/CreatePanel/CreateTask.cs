@@ -10,7 +10,8 @@ namespace CompServiceApplication.Components.CreatePanel
         { _db = db; }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            SelectList users = new SelectList(from u in _db.users.ToList()
+            int roleid = _db.usertypes.First(ut => ut.usertypename == "Client").usertypeid;
+            SelectList users = new SelectList(from u in _db.users.Where(u=>u.usertypeid==roleid).ToList()
                                                select new
                                                {
                                                    UserID = u.userid,

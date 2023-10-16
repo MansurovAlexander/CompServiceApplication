@@ -1,6 +1,7 @@
 ﻿using CompServiceApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 
 namespace CompServiceApplication.Controllers
 {
@@ -32,7 +33,7 @@ namespace CompServiceApplication.Controllers
                 await _db.SaveChangesAsync();
                 Models.UsedPartsInWork usedPartsInWork = new UsedPartsInWork();
                 usedPartsInWork.workid = workID;
-                usedPartsInWork.usedpartid = _db.usedparts.Last().usedpartid;
+                usedPartsInWork.usedpartid = _db.usedparts.OrderBy(u=>u.usedpartid).Last().usedpartid;
                 _db.usedpartsinwork.Add(usedPartsInWork);
                 await _db.SaveChangesAsync();
             }
@@ -59,6 +60,15 @@ namespace CompServiceApplication.Controllers
             ViewBag.Parts = parts;
             return View("WorkPanel\\WareHouse");
         }
+        public async Task<IActionResult> CancelTask(int taskid)
+        {
+            var inworkid = _db.inwork.First(w => w.taskorderid == taskid).workid;
+            var userinwork = _db.userinwork.OrderBy(uw => uw.userinworkid).Last(uw => uw.workid == inworkid);
+            userinwork.enddate = DateTime.Now;
+            _db.userinwork.Update(userinwork);
+            await _db.SaveChangesAsync();
+            return View();
+        }
         public async Task<IActionResult> TakeTask(int taskid)
         {
             if (User.IsInRole("worker") || User.IsInRole("admin"))
@@ -76,6 +86,15 @@ namespace CompServiceApplication.Controllers
                 await _db.SaveChangesAsync(); 
             }
             return View("WorkPanel\\WorkerTaskList");
+        }
+        public async Task<IActionResult> AddRepairType(int taskorderid, int repairid)
+        {
+            var inworkid = _db.inwork.First(w => w.taskorderid == taskorderid).workid;
+            var repairinwork=new RepairInWork();
+            repairinwork.workid = inworkid;
+            repairinwork.repairid=repairid;
+            _db.repairinwork.Add(repairinwork);
+            await _db.SaveChangesAsync();
         }
         public IActionResult AcceptedTasks()
         {

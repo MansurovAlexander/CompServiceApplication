@@ -49,7 +49,7 @@ namespace CompServiceApplication.Controllers
 			RoleChecker.Check(user, _db);
 			var result = Authentification(user);
 			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(result));
-			return View("Index");
+            return Redirect("Index");
 		}
 
 		private ClaimsIdentity Authentification(UserLoginView user)

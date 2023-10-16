@@ -25,14 +25,19 @@
             </label>
             @if (task.taken)
             {
-                <input type="checkbox" class="dropbtn" value="Взять детали со склада" />
-                <div id="myDropdown" onclick="myFunction()" class="dropdown-content">
-                </div>
             }
             else
             {
                 <button name="taskid" value=@task.taskorderid type="submit">Взять задачу</button>
             }
         </form>
+        <div>
+        @if (task.taken)
+        {
+            <form asp-controller="WorkPanel" asp-action="CancelTask">
+                <button name="taskid" value=@task.taskorderid type="submit">Отказаться от заказа</button>
+        </form>
+        }
+        </div>
     }
 </div>

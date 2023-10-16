@@ -9,7 +9,7 @@ namespace CompServiceApplication.Components
 		AppDatabaseContext _db;
 		public TaskList(AppDatabaseContext db)
 		{ _db = db; }
-		public async Task<IViewComponentResult> InvokeAsync(bool choiced)
+		public async Task<IViewComponentResult> InvokeAsync(bool choiced)//choiced true-вывод задач конкретного пользователя false-вывод свободных задач
 		{
 			if (!choiced)
 			{
@@ -17,8 +17,9 @@ namespace CompServiceApplication.Components
 				var taskOrders = _db.taskorders.ToList();
 				foreach (var task in taskOrders)
 				{
-					var inWork = _db.inwork.Where(w => w.taskorderid == task.taskorderid).ToList();
-					if (inWork.Count == 0)
+					var inWorkID = _db.inwork.First(w => w.taskorderid == task.taskorderid).workid;
+					var usersinwork = _db.userinwork.Where(w=>w.workid==inWorkID).OrderBy(x => x.userinworkid).ToList();
+					if (usersinwork.Count==0 || usersinwork.Last().enddate!=null)
 					{
 						var newTask = new TaskViewModel();
 						newTask.taskorderid = task.taskorderid;

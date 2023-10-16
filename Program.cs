@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Npgsql.EntityFrameworkCore;
+using System.Net;
 using System.Security.Claims;
 
 namespace CompServiceApplication
@@ -18,11 +19,10 @@ namespace CompServiceApplication
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddControllersWithViews()
-    .AddRazorOptions(options =>
-    {
-        options.ViewLocationFormats.Add("/{0}.cshtml");
-    });
+            builder.Services.AddControllersWithViews().AddRazorOptions(options =>
+            {
+                options.ViewLocationFormats.Add("/{0}.cshtml");
+            });
 
 			var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDatabaseContext>(options =>
@@ -40,7 +40,6 @@ namespace CompServiceApplication
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
