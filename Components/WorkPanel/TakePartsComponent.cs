@@ -1,19 +1,22 @@
-﻿using CompServiceApplication.Models;
+﻿using CompServiceApplication.Interfaces;
+using CompServiceApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CompServiceApplication.Components.WorkPanel
 {
-    public class WareHouseComponent:ViewComponent
+    public class TakePartsComponent:ViewComponent
     {
-        AppDatabaseContext _db;
-        public WareHouseComponent(AppDatabaseContext db)
+        private readonly IWareHouseRepository _wareHouseRepository;
+        private readonly ITaskOrderRepository _taskOrderRepository;
+        public TakePartsComponent(IWareHouseRepository wareHouseRepository, ITaskOrderRepository taskOrderRepository)
         {
-            _db = db;
+            _wareHouseRepository = wareHouseRepository;
+            _taskOrderRepository = taskOrderRepository;
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            SelectList parts = new SelectList(from p in _db.warehouse.ToList()
+            SelectList parts = new SelectList(from p in _wareHouseRepository.GetAll().Result
                                               select new
                                               {
                                                   PartID = p.partid,
@@ -26,14 +29,8 @@ namespace CompServiceApplication.Components.WorkPanel
                                              null
                                              );
             ViewBag.Parts = parts;
-            List<TaskOrder> taskOrders = new();
-            var userWorks=_db.userinwork.Where(uw=>uw.userid==int.Parse(User.Identity.Name)).ToList();
-            foreach (var work in userWorks)
-            {
-                int taskId=_db.inwork.First(iw=>iw.workid==work.workid).taskorderid;
-                taskOrders.Add(_db.taskorders.First(to=>to.taskorderid==taskId));
-            }
-            SelectList tasks = new SelectList(from t in taskOrders
+            var tasOrdersByUser=_taskOrderRepository.GetTaskOrdersByWorker(int.Parse(User.Identity.Name));
+            SelectList tasks = new SelectList(from t in tasOrdersByUser
                                               select new
                                               {
                                                   TaskID = t.taskorderid,
@@ -45,7 +42,7 @@ namespace CompServiceApplication.Components.WorkPanel
                                              null
                                              );
             ViewBag.Tasks = tasks;
-            return View("\\WareHouse.cshtml");
+            return View("\\TakeParts.cshtml");
         }
     }
 }

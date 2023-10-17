@@ -1,17 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CompServiceApplication.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CompServiceApplication.Components.CreatePanel
 {
     public class CreateTask : ViewComponent
     {
-        AppDatabaseContext _db;
-        public CreateTask(AppDatabaseContext db)
-        { _db = db; }
+        private readonly IUserTypeRepository _userTypeRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IDeviceRepository _deviceRepository;
+        public CreateTask(IUserRepository userRepository, IUserTypeRepository userTypeRepository, IDeviceRepository deviceRepository)
+        {
+            _userTypeRepository = userTypeRepository;
+            _userRepository = userRepository;
+            _deviceRepository = deviceRepository;
+        }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int roleid = _db.usertypes.First(ut => ut.usertypename == "Client").usertypeid;
-            SelectList users = new SelectList(from u in _db.users.Where(u=>u.usertypeid==roleid).ToList()
+            int roleid = _userTypeRepository.GetIDByName("client").Result;
+            var usersData=_userRepository.GetAllByTypeID(roleid).Result;
+            SelectList users = new SelectList(from u in usersData
                                                select new
                                                {
                                                    UserID = u.userid,
@@ -21,7 +29,8 @@ namespace CompServiceApplication.Components.CreatePanel
                 "UserData",
                 null);
             ViewBag.Users = users;
-            SelectList devices = new SelectList(from d in _db.devices.ToList()
+            var devicesData = _deviceRepository.GetAll().Result;
+            SelectList devices = new SelectList(from d in devicesData
                                                 select new
                                                 {
                                                     DeviceID = d.deviceid,

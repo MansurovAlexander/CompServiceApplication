@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CompServiceApplication.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CompServiceApplication.Components.AlterPanel
 {
     public class AlterDevice : ViewComponent
     {
-		AppDatabaseContext _db;
-		public AlterDevice(AppDatabaseContext db)
+		private readonly IDeviceRepository _deviceRepository;
+		public AlterDevice(IDeviceRepository deviceRepository)
 		{
-			_db = db;
+			_deviceRepository = deviceRepository;
 		}
         public async Task<IViewComponentResult> InvokeAsync()
         {
-			SelectList devices = new SelectList(from d in _db.devices.ToList()
+			SelectList devices = new SelectList(from d in _deviceRepository.GetAll().Result
 												select new
 												{
 													DeviceID = d.deviceid,

@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CompServiceApplication.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CompServiceApplication.Components.AlterPanel
 {
     public class AlterRepairType : ViewComponent
     {
-        AppDatabaseContext _db;
-        public AlterRepairType(AppDatabaseContext db)
+        private readonly IRepairTypeRepository _repairTypeRepository;
+        public AlterRepairType(IRepairTypeRepository repairTypeRepository)
         {
-            _db = db;
+			_repairTypeRepository = repairTypeRepository;
         }
         public async Task<IViewComponentResult> InvokeAsync()
 		{
-			SelectList repairTypes = new SelectList(from rt in _db.repairtypes.ToList()
+			SelectList repairTypes = new SelectList(from rt in _repairTypeRepository.GetAll().Result
 											  select new
 											  {
 												  RepairTypeID = rt.repairid,

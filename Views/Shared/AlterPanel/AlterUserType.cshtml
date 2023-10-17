@@ -1,0 +1,12 @@
+﻿@model Models.UserType
+@{
+    ViewData["Title"] = "Изменение типа пользователя";
+}
+<div class="classic-add-container">
+    <form asp-controller="AlterPanel" asp-action="AlterUserType">
+        <select asp-for=usertypeid asp-items="ViewBag.UserTypes"></select>
+        <label>Введите новое название роли</label>
+        <input asp-for=usertypename type="text" />
+        <button type="submit">Обновить</button>
+    </form>
+</div>

@@ -1,17 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
+using CompServiceApplication.Interfaces;
 
 namespace CompServiceApplication.Components.CreatePanel
 {
     public class CreatePart : ViewComponent
     {
-        AppDatabaseContext _db;
-        public CreatePart(AppDatabaseContext db)
-        { _db = db; }
+        private readonly IDeviceRepository _deviceRepository;
+        public CreatePart(IDeviceRepository deviceRepository)
+        {
+            _deviceRepository = deviceRepository;
+        }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            SelectList devices = new SelectList(from d in _db.devices.ToList()
-                                                select new
+            var devicesRep=_deviceRepository.GetAll().Result;
+            SelectList devices = new SelectList(from d in devicesRep
+												select new
                                                 {
                                                     DeviceID = d.deviceid,
                                                     DeviceData = d.manufacturer + " " + d.model + " " + d.devicedescription

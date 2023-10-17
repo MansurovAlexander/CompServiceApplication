@@ -1,29 +1,47 @@
 ﻿using CompServiceApplication.Classes;
+using CompServiceApplication.Interfaces;
 using CompServiceApplication.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 
 namespace CompServiceApplication.Controllers
 {
     public class CreatePanel : Controller
     {
-        AppDatabaseContext _db;
-        public CreatePanel(AppDatabaseContext db)
+        private readonly IDeviceRepository _deviceRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ITaskOrderRepository _taskOrderRepository;
+        private readonly IWareHouseRepository _warehouseRepository;
+        private readonly IRepairTypeRepository _repairTypeRepository;
+        private readonly IVisualFlowRepository _visualFlowRepository;
+        private readonly IPartToDeviceRepository _partToDeviceRepository;
+        private readonly IUserTypeRepository _userTypeRepository;
+        public CreatePanel(IUserRepository userRepository, ITaskOrderRepository taskOrderRepository, IWareHouseRepository warehouseRepository, IRepairTypeRepository repairTypeRepository, IVisualFlowRepository visualFlowRepository
+            , IPartToDeviceRepository partToDeviceRepository, IDeviceRepository deviceRepository, IUserTypeRepository userTypeRepository)
         {
-            _db = db;
+            _userRepository = userRepository;
+            _taskOrderRepository = taskOrderRepository;
+            _warehouseRepository = warehouseRepository;
+            _repairTypeRepository = repairTypeRepository;
+            _visualFlowRepository = visualFlowRepository;
+            _partToDeviceRepository = partToDeviceRepository;
+            _deviceRepository = deviceRepository;
+            _userTypeRepository = userTypeRepository;
+        }
+        public async Task<IActionResult> CreateUserType(UserType newType)
+        {
+            await _userTypeRepository.Create(newType);
+            return View("\\CreatePanel");
         }
         public async Task<IActionResult> CreateDevice(Device newDevice)
         {
-            _db.devices.Add(newDevice);
-            await _db.SaveChangesAsync();
+            await _deviceRepository.Create(newDevice);
             return View("\\CreatePanel");
         }
-        public async Task<IActionResult> CreateUser(CreateUserViewModel userViewModel)
+        public async Task<IActionResult> CreateUser(User user)
         {
-            User newUser = new User();
-            newUser = ConvertViewModelToUser(userViewModel);
-            _db.users.Add(newUser);
-            await _db.SaveChangesAsync();
+            if (user.userpassword! != null)
+                user.userpassword = HashPasswordHelper.HashPassword(user.userpassword);
+            await _userRepository.Create(user);
             return View("\\CreatePanel");
         }
         public async Task<IActionResult> CreateTask(CreateTaskViewModel taskViewModel) 
@@ -33,19 +51,18 @@ namespace CompServiceApplication.Controllers
             newTaskOrder.problemdescription = taskViewModel.problemdescription;
             newTaskOrder.userid = taskViewModel.userid;
             newTaskOrder.deviceid= taskViewModel.deviceid;
+            newTaskOrder.status = "открыт";
             newTaskOrder.finallycost = 0;
-            _db.taskorders.Add(newTaskOrder);
-            await _db.SaveChangesAsync();
-            var lastTaskID = _db.taskorders.ToList().Last().taskorderid;
+            await _taskOrderRepository.Create(newTaskOrder);
+            var lastTaskID = _taskOrderRepository.GetLast().Result.taskorderid;
             foreach (var image in taskViewModel.visualflow)
             {
-                var byteImage = ImageConverter.ImagesToByte(image);
+                var byteImage = Classes.ImageConverter.ImagesToByte(image);
 				Visualflow newVisualFlow = new();
 				newVisualFlow.visualflow = byteImage;
 				newVisualFlow.taskorderid = lastTaskID;
                 newVisualFlow.imageextension = image.ContentType;
-				_db.visualflows.Add(newVisualFlow);
-				await _db.SaveChangesAsync();
+				await _visualFlowRepository.Create(newVisualFlow);
             }
             return View("\\CreatePanel");
         }
@@ -56,39 +73,21 @@ namespace CompServiceApplication.Controllers
             newPart.partname = partViewModel.partname;
             newPart.partscount= int.Parse(partViewModel.partscount);
             newPart.partcost = decimal.Parse(partViewModel.partcost);
-            _db.warehouse.Add(newPart);
-            await _db.SaveChangesAsync();
-            int partid=_db.warehouse.ToList().Last().partid;
+            await _warehouseRepository.Create(newPart);
+            int partid=_warehouseRepository.GetLast().Result.partid;
             foreach (var device in partViewModel.compatibleDevices)
             {
                 PartToDevice partToDevice = new();
                 partToDevice.partid = partid;
                 partToDevice.deviceid = device;
-                _db.parttodevice.Add(partToDevice);
-                _db.SaveChanges();
+                await _partToDeviceRepository.Create(partToDevice);
             }
             return View("\\CreatePanel");
         }
         public async Task<IActionResult> CreateRepairType(RepairType repairType)
         {
-            _db.repairtypes.Add(repairType);
-            await _db.SaveChangesAsync();
+            await _repairTypeRepository.Create(repairType);
             return View("\\CreatePanel");
-        }
-        public User ConvertViewModelToUser(CreateUserViewModel userViewModel)
-        {
-            User result = new User();
-            result.firstname = userViewModel.firstname;
-            result.lastname=userViewModel.lastname;
-            result.middlename = userViewModel.middlename;
-            result.phonenumber = userViewModel.phonenumber;
-            result.dateofbirth = userViewModel.dateofbirth;
-            result.passseries = userViewModel.passseries;
-            result.passnum = userViewModel.passnum;
-            result.userlogin=userViewModel.userlogin;
-            result.userpassword=HashPasswordHelper.HashPassword(userViewModel.userpassword);
-            result.usertypeid = userViewModel.usertypeid;
-            return result;
         }
 
         public IActionResult Index()

@@ -29,9 +29,4 @@
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CompService.DAL\CompService.DAL.csproj" />
-    <ProjectReference Include="..\CompService.Domain\CompService.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

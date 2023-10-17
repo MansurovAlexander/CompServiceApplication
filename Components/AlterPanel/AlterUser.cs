@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
+using CompServiceApplication.Interfaces;
 
 namespace CompServiceApplication.Components.AlterPanel
 {
     public class AlterUser:ViewComponent
     {
-        AppDatabaseContext _db;
-        public AlterUser(AppDatabaseContext db)
-        { _db = db; }
+        private readonly IUserRepository _userRepository;
+        private readonly IUserTypeRepository _userTypeRepository;
+        public AlterUser(IUserRepository userRepository, IUserTypeRepository userTypeRepository)
+        {
+            _userRepository = userRepository;
+            _userTypeRepository = userTypeRepository;
+        }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            SelectList users = new SelectList(from u in _db.users.ToList()
+            SelectList users = new SelectList(from u in _userRepository.GetAll().Result
                                               select new
                                               {
                                                   UserID = u.userid,
@@ -22,7 +27,7 @@ namespace CompServiceApplication.Components.AlterPanel
                 "UserData",
                 null);
             ViewBag.Users = users; 
-            SelectList usertypes = new SelectList(_db.usertypes.ToList(), "usertypeid", "usertypename");
+            SelectList usertypes = new SelectList(_userTypeRepository.GetAll().Result, "usertypeid", "usertypename");
             ViewBag.UserTypes = usertypes;
             return View("AlterPanel\\AlterUser.cshtml");
         }

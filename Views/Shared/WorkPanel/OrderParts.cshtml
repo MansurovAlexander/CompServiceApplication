@@ -1,0 +1,14 @@
+﻿@model Models.WareHouseViewModel
+@{
+    ViewData["Title"] = "Склад";
+}
+<label>Склад</label>
+<div class="classic-add-container">
+    <form asp-controller="WorkPanel" asp-action="OrderParts">
+        <label>Тип детали:</label>
+        <select multiple asp-for=partid asp-items="ViewBag.Parts" placeholder="select members"></select>
+        <lable>Количество:</lable>
+        <input asp-for=partscount type="number" />
+        <button type="submit">Создать заявку</button>
+    </form>
+</div>

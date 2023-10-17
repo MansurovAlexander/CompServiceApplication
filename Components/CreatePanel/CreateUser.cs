@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CompServiceApplication.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CompServiceApplication.Components.CreatePanel
 {
     public class CreateUser : ViewComponent
     {
-        AppDatabaseContext _db;
-        public CreateUser(AppDatabaseContext db)
-        { _db = db; }
+        private readonly IUserTypeRepository _userTypeRepository;
+        public CreateUser(IUserTypeRepository userTypeRepository)
+        {
+            _userTypeRepository = userTypeRepository;
+        }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            SelectList usertypes = new SelectList(_db.usertypes.ToList(), "usertypeid", "usertypename");
+            SelectList usertypes = new SelectList(_userTypeRepository.GetAll().Result, "usertypeid", "usertypename");
             ViewBag.UserTypes = usertypes;
             return View("CreatePanel\\CreateUser.cshtml");
         }

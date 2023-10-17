@@ -1,3 +1,5 @@
+using CompServiceApplication.Interfaces;
+using CompServiceApplication.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Connections;
@@ -29,7 +31,21 @@ namespace CompServiceApplication
             {
                 options.UseNpgsql(connectionString);
             });
-			var app = builder.Build();
+            builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
+            builder.Services.AddScoped<IInWorkRepository, InWorkRepository>();
+            builder.Services.AddScoped<IPartToDeviceRepository, PartToDeviceRepository>();
+            builder.Services.AddScoped<IPartToOrderRepository, PartToOrderRepository>();
+            builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
+            builder.Services.AddScoped<IRepairInWorkRepository, RepairInWorkRepository>();
+            builder.Services.AddScoped<IRepairTypeRepository, RepairTypeRepository>();
+            builder.Services.AddScoped<ITaskOrderRepository, TaskOrderRepository>();
+            builder.Services.AddScoped<IUsedPartRepository, UsedPartRepository>();
+            builder.Services.AddScoped<IUserInWorkRepository, UserInWorkRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserTypeRepository, UserTypeRepository>();
+            builder.Services.AddScoped<IVisualFlowRepository, VisualFlowRepository>();
+            builder.Services.AddScoped<IWareHouseRepository, WareHouseRepository>();
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

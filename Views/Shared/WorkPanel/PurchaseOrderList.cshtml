@@ -1,0 +1,21 @@
+﻿@model List<Models.PurchaseOrderViewModel>
+@{
+    ViewData["Title"] = "Заявки на заказ деталей";
+}
+<div>
+    @foreach (var purchaseOrder in Model)
+    {
+        <label>Пользователь оставивший заявку: @purchaseOrder.ordereduser</label>
+        <label>Дата создания заявки: @purchaseOrder.dateoforder.ToString()</label>
+        <lable>Статус: @purchaseOrder.status</lable>
+        <label>Дата последнего изменения статуса: @purchaseOrder.statuschangedate.ToString()</label>
+        <label>Пользователь изменявший статус: @purchaseOrder.confirmeduser</label>
+        <select asp-items=purchaseOrder.partsToOrder></select>
+        <form asp-controller="Manager" asp-action="ConfirmPurchaseOrder">
+            <button name="purchaseOrderID" value="@purchaseOrder.purchaseorderid" type="submit">Подтвердить</button>
+        </form>
+        <form asp-controller="Manager" asp-action="DenyPurchaseOrder">
+            <button name="purchaseOrderID" value="@purchaseOrder.purchaseorderid" type="submit">Отказать</button>
+        </form>
+    }
+</div>

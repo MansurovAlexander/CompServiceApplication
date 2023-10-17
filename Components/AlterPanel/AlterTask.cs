@@ -1,16 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CompServiceApplication.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CompServiceApplication.Components.AlterPanel
 {
     public class AlterTask : ViewComponent
     {
-        AppDatabaseContext _db;
-        public AlterTask(AppDatabaseContext db)
-        { _db = db; }
-        public async Task<IViewComponentResult> InvokeAsync()
+		private readonly IUserTypeRepository _userTypeRepository;
+		private readonly IUserRepository _userRepository;
+		private readonly IDeviceRepository _deviceRepository;
+        private readonly ITaskOrderRepository _taskOrderRepository;
+		public AlterTask(IUserRepository userRepository, IUserTypeRepository userTypeRepository, IDeviceRepository deviceRepository, ITaskOrderRepository taskOrderRepository)
+		{
+			_userTypeRepository = userTypeRepository;
+			_userRepository = userRepository;
+			_deviceRepository = deviceRepository;
+            _taskOrderRepository = taskOrderRepository;
+		}
+		public async Task<IViewComponentResult> InvokeAsync()
         {
-            SelectList tasks = new SelectList(from t in _db.taskorders.ToList()
+            SelectList tasks = new SelectList(from t in _taskOrderRepository.GetAll().Result
                                               select new
                                               {
                                                   TaskID = t.taskorderid,
@@ -20,17 +29,19 @@ namespace CompServiceApplication.Components.AlterPanel
                 "TaskData",
                 null);
             ViewBag.Tasks = tasks;
-            SelectList users = new SelectList(from u in _db.users.ToList()
-                                              select new
-                                              {
-                                                  UserID = u.userid,
-                                                  UserData = u.lastname + " " + u.firstname + " " + u.middlename + " " + u.passseries.ToString() + " " + u.passnum.ToString()
-                                              },
-                "UserID",
-                "UserData",
-                null);
-            ViewBag.Users = users;
-            SelectList devices = new SelectList(from d in _db.devices.ToList()
+			int roleid = _userTypeRepository.GetIDByName("client").Result;
+			var usersData = _userRepository.GetAllByTypeID(roleid).Result;
+			SelectList users = new SelectList(from u in usersData
+											  select new
+											  {
+												  UserID = u.userid,
+												  UserData = u.lastname + " " + u.firstname + " " + u.middlename + " " + u.passseries.ToString() + " " + u.passnum.ToString()
+											  },
+				"UserID",
+				"UserData",
+				null);
+			ViewBag.Users = users;
+			SelectList devices = new SelectList(from d in _deviceRepository.GetAll().Result
                                                 select new
                                                 {
                                                     DeviceID = d.deviceid,
