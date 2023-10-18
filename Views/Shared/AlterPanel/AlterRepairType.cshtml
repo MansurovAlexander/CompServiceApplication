@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "добавление типа работы";
 }
-<body>
     <form asp-controller="AlterPanel" asp-action="AlterRepairType">
         <select asp-for=repairid asp-items="ViewBag.RepairTypes"></select>
         <label>Описание типа работы</label>
@@ -11,4 +10,3 @@
         <input asp-for="repaircost" type="number" />
         <button type="submit">Обновить</button>
     </form>
-</body>

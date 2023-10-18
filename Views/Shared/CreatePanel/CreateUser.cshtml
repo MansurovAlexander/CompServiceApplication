@@ -4,7 +4,6 @@
     ViewData["Title"] = "Добавление пользователя";
 }
 
-<div class="classic-add-container">
     <form asp-controller="CreatePanel" asp-action="CreateUser">
         <label>Имя</label>
         <input asp-for=firstname type="text" />
@@ -28,4 +27,3 @@
         <select asp-for=usertypeid asp-items="ViewBag.UserTypes"></select>
         <button type="submit">Создать</button>
     </form>
-</div>

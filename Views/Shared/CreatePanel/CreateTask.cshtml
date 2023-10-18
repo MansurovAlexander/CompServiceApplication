@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Добавление задачи";
 }
-<div class="classic-add-container">
     <form asp-controller="CreatePanel" asp-action="CreateTask" enctype="multipart/form-data">
         <label>Дата добавления</label>
         <input asp-for=createdate type="datetime-local" />
@@ -19,4 +18,3 @@
         <span asp-validation-for="visualflow"></span>
         <button type="submit">Создать</button>
     </form>
-</div>

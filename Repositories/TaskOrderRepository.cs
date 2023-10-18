@@ -17,6 +17,20 @@ namespace CompServiceApplication.Repositories
         {
             _db = db;
         }
+        public string GetLastWorkerByTaskID(int taskid)
+        {
+            try
+            {
+                var inworkID=_db.inwork.FirstOrDefaultAsync(iw=>iw.taskorderid==taskid).Result.workid;
+                var userInWorkID = _db.userinwork.FirstOrDefaultAsync(uiw => uiw.workid == inworkID && uiw.enddate != null).Result.userid;
+                var user = _db.users.FirstOrDefaultAsync(u => u.userid == userInWorkID).Result;
+                return user.lastname + " | " + user.firstname + " | " + user.phonenumber.ToString();
+            }
+            catch
+            {
+                throw;
+            }
+        }
         public Task<TaskOrder> GetLast()
         {
             try
@@ -61,6 +75,17 @@ namespace CompServiceApplication.Repositories
             try
             {
                 return _db.taskorders.ToListAsync();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public Task<List<TaskOrder>> GetAllClosedByWorker()
+        {
+            try
+            {
+                return _db.taskorders.Where(t => t.status.ToLower() == "закрыт рабочим").ToListAsync();
             }
             catch
             {

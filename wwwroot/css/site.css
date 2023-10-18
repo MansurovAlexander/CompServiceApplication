@@ -1,88 +1,40 @@
-* {
-    box-sizing:border-box;
-}
-.div-inline {
-    display: inline;
-    float: left;
-    height: 400px;
-    overflow:scroll;
-    margin: 10px 10px 10px 10px;
-}
-.classic-add-container {
-    position: static;
-    text-align: center;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.login-container {
-    width: 33%;
-    height: 33%;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    text-align: center;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px;
+.topnav {
+    background-color: #333;
+    overflow: hidden;
 }
 
-input[type="text"],
-input[type="password"] {
+    /* Style the links inside the navigation bar */
+    .topnav button {
+        width: 250px;
+        margin: 0px 5px 0px 0px;
+        float: left;
+        display: block;
+        background-color: #4caf50;
+        color: #fff;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        /* Change the color of links on hover */
+        .topnav button:hover {
+            background-color: #45a049;
+        }
+
+.tasklist {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-button {
-    vertical-align: central;
-    width: 95%;
-    padding: 10px;
-    margin: 5px 5px 5px 5px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-#messageBox {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid black;
-    padding: 10px;
-    background-color: #f0f0f0;
-    opacity: 1;
-    transition: opacity 1s;
-}
-
-#messageText {
-    color: green;
-}
-
-.hide {
-    opacity: 0;
+    display: inline;
+    text-align: center;
+    margin: 20px 10px 20px 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .task-element {
-    width:100%;
-    display: inline;
+    width: 100%;
+    display: block;
     text-align: center;
     margin: 20px 10px 20px 10px;
     background-color: #fff;
@@ -98,64 +50,103 @@ button:hover {
         border-color: black;
         border-radius: 10px;
         margin: 10px 10px 10px 10px;
-        display: inline;
+        display: inline-block;
         margin-bottom: 10px;
         font-size: 16px;
     }
-header{
-    background-color: black;
-    margin: 0px 0px 10px 0px;
-    display: inline;
-}
-    header button {
-        display: inline;
+    .task-element button {
+        margin: 10px auto 10px auto;
+        background-color: #4caf50;
+        padding: 10px 10px;
+        display: block;
+        color: #fff;
+        text-align: center;
+        font-size: 17px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .task-element image{
         margin: 5px 5px 5px 5px;
     }
-
-.dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-    /* Dropdown button on hover & focus */
-    .dropbtn:hover, .dropbtn:focus {
-        background-color: #2980B9;
-    }
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-    position: relative;
+.classic-add-container {
+    margin: 0px 10px 10px 0px;
+    width: 48%;
+    height: 400px;
+    overflow: scroll;
+    position: static;
     display: inline-block;
+    text-align: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-    /* Links inside the dropdown */
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
+    .classic-add-container button {
+        margin: 10px auto 10px auto;
+        background-color: #4caf50;
+        color: #fff;
         display: block;
+        text-align: center;
+        font-size: 17px;
+        padding: 10px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
     }
-
-        /* Change color of dropdown links on hover */
-        .dropdown-content a:hover {
-            background-color: #ddd
-        }
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {
+.login-container {
+    width: 33%;
+    height: 33%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+    .login-container button {
+        width:100px;
+        margin: 0px 5px 0px 0px;
+        padding: 10px 10px;
+        background-color: #4caf50;
+        color: #fff;
+        text-align: center;
+        font-size: 17px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+label {
     display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#messageBox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    padding: 10px;
+    background-color: #f0f0f0;
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+#messageText {
+    color: green;
 }

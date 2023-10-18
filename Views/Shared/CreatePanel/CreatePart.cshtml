@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Добавление детали";
 }
-<div class="classic-add-container">
     <form asp-controller="CreatePanel" asp-action="CreatePart" enctype="multipart/form-data">
         <label>Производитель</label>
         <input asp-for=manufacturer type="text" />
@@ -17,4 +16,3 @@
         <select multiple asp-for=compatibleDevices asp-items="ViewBag.Devices" placeholder="select members"></select>
         <button type="submit">Создать</button>
     </form>
-</div>

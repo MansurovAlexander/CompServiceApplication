@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Изменение пользователя";
 }
-<div class="classic-add-container">
     <form asp-controller="AlterPanel" asp-action="AlterUser">
         <select asp-for=userid asp-items="ViewBag.Users"></select>
         <label>Имя</label>
@@ -27,4 +26,3 @@
         <select asp-for=usertypeid asp-items="ViewBag.UserTypes"></select>
         <button type="submit">Сохранить</button>
     </form>
-</div>

@@ -22,7 +22,7 @@ namespace CompServiceApplication.Repositories
         {
             try
             {
-                return _db.purchaseorder.Where(po => po.status.ToLower() != "Отказано" && po.status.ToLower() != "Подтвержден").ToListAsync();
+                return _db.purchaseorder.Where(po => po.status.ToLower() != "отказано" && po.status.ToLower() != "подтвержден").ToListAsync();
             }
             catch
             {

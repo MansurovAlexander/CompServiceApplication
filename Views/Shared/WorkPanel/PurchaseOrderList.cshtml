@@ -2,9 +2,9 @@
 @{
     ViewData["Title"] = "Заявки на заказ деталей";
 }
-<div>
     @foreach (var purchaseOrder in Model)
     {
+        <div class="task-element">
         <label>Пользователь оставивший заявку: @purchaseOrder.ordereduser</label>
         <label>Дата создания заявки: @purchaseOrder.dateoforder.ToString()</label>
         <lable>Статус: @purchaseOrder.status</lable>
@@ -17,5 +17,5 @@
         <form asp-controller="Manager" asp-action="DenyPurchaseOrder">
             <button name="purchaseOrderID" value="@purchaseOrder.purchaseorderid" type="submit">Отказать</button>
         </form>
+    </div>
     }
-</div>

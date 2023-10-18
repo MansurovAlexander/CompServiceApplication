@@ -2,10 +2,8 @@
 @{
     ViewData["Title"] = "Создания типа пользователя";
 }
-<div class="classic-add-container">
     <form asp-controller="CreatePanel" asp-action="CreateUserType">
         <label>Название роли</label>
         <input asp-for="usertypename" type="text" />
         <button type="submit">Создать</button>
     </form>
-</div>

@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Добавление детали";
 }
-<div class="classic-add-container">
     <form asp-controller="AlterPanel" asp-action="AlterPart" enctype="multipart/form-data">
         <select asp-for=partid asp-items="ViewBag.Parts"></select>
         <label>Производитель</label>
@@ -18,4 +17,3 @@
         <select multiple asp-for=compatibleDevices asp-items="ViewBag.Devices" placeholder="select members"></select>
         <button type="submit">Обновить</button>
     </form>
-</div>

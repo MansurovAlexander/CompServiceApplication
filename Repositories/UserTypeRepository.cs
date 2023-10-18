@@ -17,7 +17,7 @@ namespace CompServiceApplication.Repositories
         {
             _db = db;
         }
-        public async Task<int> GetIDByName(string name)
+        public int GetIDByName(string name)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace CompServiceApplication.Repositories
             }
             catch 
             {
-                throw;
+                return 0;
             }
         }
         public async Task<bool> Create(UserType entity)

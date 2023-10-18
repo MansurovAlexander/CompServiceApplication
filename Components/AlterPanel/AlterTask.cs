@@ -29,7 +29,7 @@ namespace CompServiceApplication.Components.AlterPanel
                 "TaskData",
                 null);
             ViewBag.Tasks = tasks;
-			int roleid = _userTypeRepository.GetIDByName("client").Result;
+			int roleid = _userTypeRepository.GetIDByName("client");
 			var usersData = _userRepository.GetAllByTypeID(roleid).Result;
 			SelectList users = new SelectList(from u in usersData
 											  select new

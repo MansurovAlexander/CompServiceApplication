@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Добавление задачи";
 }
-<div class="classic-add-container">
     <form asp-controller="AlterPanel" asp-action="AlterTask" enctype="multipart/form-data">
         <select asp-for=taskorderid asp-items=ViewBag.Tasks></select>
         <label>Дата добавления</label>
@@ -20,4 +19,3 @@
         <span asp-validation-for="visualflow"></span>
         <button type="submit">Обновить</button>
     </form>
-</div>

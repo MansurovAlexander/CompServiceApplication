@@ -3,22 +3,37 @@
 	ViewData["Title"] = "Панель редактирования";
 }
 <body>
-	<div class="div-inline">
+	@if (User.Claims.ToList().Last().Value.ToLower() == "admin")
+	{
+	<div class="classic-add-container">
 		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterUser))
 	</div>
-	<div class="div-inline">
+	<div class="classic-add-container">
 		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterDevice))
 	</div>
-	<div class="div-inline">
+	<div class="classic-add-container">
 		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterRepairType))
 	</div>
-	<div class="div-inline">
+	<div class="classic-add-container">
 		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterTask))
 	</div>
-	<div class="div-inline">
+	<div class="classic-add-container">
 		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterPart))
 	</div>
-	<div class="div-inline">
+	<div class="classic-add-container">
 		@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterUserType))
 	</div>
+	}
+	else if(User.Claims.ToList().Last().Value.ToLower() == "manager")
+	{
+		<div class="classic-add-container">
+			@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterUser))
+		</div>
+		<div class="classic-add-container">
+			@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterDevice))
+		</div>
+		<div class="classic-add-container">
+			@await Component.InvokeAsync(nameof(Components.AlterPanel.AlterTask))
+		</div>
+	}
 </body>

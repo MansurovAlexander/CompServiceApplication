@@ -83,7 +83,12 @@ namespace CompServiceApplication.Controllers
             {
                 int partId = part, partsCount = parts.partscount;
                 var partData=_warehouseRepository.GetByID(partId).Result;
-                partData.partscount -= partsCount;
+                if (partData.partscount > partsCount)
+                    partData.partscount -= partsCount;
+                else if (partData.partscount == partsCount)
+                {
+
+                }
                 await _warehouseRepository.Update(partData);
                 var work = _inWorkRepository.FindByTaskID(parts.taskorderid).Result;
                 UsedPart partsInWork = new UsedPart();
@@ -132,6 +137,17 @@ namespace CompServiceApplication.Controllers
                                               );
             ViewBag.Parts = parts;
             return View("WorkPanel\\OrderParts");
+        }
+        public async Task<IActionResult> CloseTask(int taskid)
+        {
+            var userID = int.Parse(User.Identity.Name);
+            var taskOrder = _taskOrderRepository.GetByID(taskid).Result;
+            var userinwork = _userInWorkRepository.FindLastByUserAndTaskID(userID, taskid).Result;
+            userinwork.enddate = DateTime.Now;
+            await _userInWorkRepository.Update(userinwork);
+            taskOrder.status = "Закрыт рабочим";
+            await _taskOrderRepository.Update(taskOrder);
+            return View("WorkPanel\\AcceptedTasks");
         }
         /*
         public Task<IActionResult> PlaceOrder(WareHouseViewModel orderedPart)//попробовать сделать заказ на разные виды деталей

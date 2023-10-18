@@ -9,6 +9,6 @@ namespace CompServiceApplication.Interfaces
 {
     public interface IUserTypeRepository:IBaseRepository<UserType>
     {
-        Task<int> GetIDByName(string name);
+        int GetIDByName(string name);
     }
 }

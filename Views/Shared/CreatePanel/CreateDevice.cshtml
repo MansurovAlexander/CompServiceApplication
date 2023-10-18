@@ -1,6 +1,5 @@
 ﻿@model Models.Device
 
-<div class="classic-add-container">
     <form asp-controller="CreatePanel" asp-action="CreateDevice">
         <label>Производитель</label>
         <input asp-for=manufacturer type="text" />
@@ -10,4 +9,3 @@
         <input asp-for=devicedescription type="text" />
         <button type="submit">Создать</button>
     </form>
-</div>

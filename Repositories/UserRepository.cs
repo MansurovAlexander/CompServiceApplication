@@ -24,7 +24,7 @@ namespace CompServiceApplication.Repositories
             {
                 var user = _db.users.FirstOrDefaultAsync(u => u.userid == id).Result;
                 var userRole = _db.usertypes.FirstOrDefaultAsync(ut=>ut.usertypeid==user.usertypeid).Result.usertypename;
-                userData = user.lastname + " " + user.firstname + " " + userRole;
+                userData = user.lastname + " | " + user.firstname + " | " +user.phonenumber+" | "+ user.passnum+" "+user.passseries;
                 return userData;
             }
             catch

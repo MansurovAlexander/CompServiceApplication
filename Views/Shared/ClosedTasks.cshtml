@@ -1,0 +1,31 @@
+﻿@model List<Models.TaskViewModel>
+@{
+    ViewData["Title"] = "Закрытые рабочими заказы";
+}
+<body>
+    <div class="tasklist">
+        @if (Model != null)
+        {
+            @foreach (var closedTask in Model)
+            {
+                <div class="task-element">
+                    <label>Номер заказа: @closedTask.taskorderid.ToString()</label>
+                    <label>Дата создания: @closedTask.createdate.ToString()</label>
+                    <label>Описание проблемы: @closedTask.problemdescription.ToString()</label>
+                    <label>Последний рабочий: @closedTask.lastworker.ToString()</label>
+                    <label>Данные пользователя: @closedTask.clientdata.ToString()</label>
+                    @foreach (string image in closedTask.images)
+                    {
+                        <img src=@image alt="content" height="100" />
+                    }
+                    <form asp-controller="Manager" asp-action="CloseTask">
+                        <button name="taskid" value=@closedTask.taskorderid type="submit">Закрыть заказ</button>
+                    </form>
+                    <form asp-controller="Manager" asp-action="CancelClose">
+                        <button name="taskid" value=@closedTask.taskorderid type="submit">Отправить на доработку</button>
+                    </form>
+                </div>
+            }
+        }
+    </div>
+</body>

@@ -4,10 +4,9 @@
 }
 
 
-<div>
+<div class="tasklist">
     @foreach (var task in Model)
     {
-        <form asp-controller="WorkPanel" asp-action="TakeTask" method="post">
         <div class="task-element">
             <label>Описание проблемы: @task.problemdescription
             </label>
@@ -15,29 +14,29 @@
             </label>
             <label>Прошлый рабочий: @task.lastworker
             </label>
-        </div>
-        <label class="hidden">
-            Состояние техники
-            @foreach (string image in task.images)
-            {
-                <img src=@image alt="content" height="100" />
-            }
-            </label>
-            @if (task.taken)
-            {
-            }
-            else
-            {
-                <button name="taskid" value=@task.taskorderid type="submit">Взять задачу</button>
-            }
-        </form>
-        <div>
-        @if (task.taken)
-        {
-            <form asp-controller="WorkPanel" asp-action="CancelTask">
-                <button name="taskid" value=@task.taskorderid type="submit">Отказаться от заказа</button>
-        </form>
-        }
+            <br>
+                <label>
+                    Состояние техники
+                </label>
+                @foreach (string image in task.images)
+                {
+                    <img src=@image alt="content" height="100" />
+                }
+                @if (task.taken)
+                {
+                    <form asp-controller="WorkPanel" asp-action="CancelTask">
+                        <button name="taskid" value=@task.taskorderid type="submit">Отказаться от заказа</button>
+                </form>
+                <form asp-controller="WorkPanel" asp-action="CloseTask">
+                    <button name="taskid" value=@task.taskorderid type="submit">Закрыть заказ</button>
+                </form>
+                }
+                else
+                {
+                    <form asp-controller="WorkPanel" asp-action="TakeTask" method="post">
+                    <button name="taskid" value=@task.taskorderid type="submit">Взять задачу</button>
+                    </form>
+                }
         </div>
     }
 </div>

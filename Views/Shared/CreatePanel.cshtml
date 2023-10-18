@@ -5,22 +5,28 @@
 @if (User.Claims.ToList().Last().Value.ToLower() == "admin")
 {
 	<body>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление пользователя</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateUser))
 		</div>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление устройства</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateDevice))
 		</div>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление задачи</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateTask))
 		</div>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление детали</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreatePart))
 		</div>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление вида ремонта</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateRepairType))
 		</div>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление роли подьзователя</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateUserType))
 		</div>
 	</body>
@@ -28,20 +34,20 @@
 else if (User.Claims.ToList().Last().Value.ToLower() == "manager")
 {
 	<body>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление данных пользователя</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateUser))
 		</div>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление данных устройства</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateDevice))
 		</div>
-		<div class="div-inline">
+		<div class="classic-add-container">
+			<lable>Добавление данных задачи</lable><br>
 			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateTask))
 		</div>
-		<div class="div-inline">
-			@await Component.InvokeAsync(nameof(Components.CreatePanel.CreateTask))
-		</div>
-		<div>
-			@await Component.InvokeAsync(nameof(Components.PurchaseOrdersList));
+		<div class="classic-add-container">
+			@await Component.InvokeAsync(nameof(Components.PurchaseOrdersList))
 		</div>
 	</body>
 }

@@ -1,6 +1,7 @@
 ﻿using CompServiceApplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Drawing.Text;
 
 namespace CompServiceApplication.Components.CreatePanel
 {
@@ -17,29 +18,36 @@ namespace CompServiceApplication.Components.CreatePanel
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int roleid = _userTypeRepository.GetIDByName("client").Result;
-            var usersData=_userRepository.GetAllByTypeID(roleid).Result;
-            SelectList users = new SelectList(from u in usersData
-                                               select new
-                                               {
-                                                   UserID = u.userid,
-                                                   UserData = u.lastname + " " + u.firstname + " " + u.middlename + " " + u.passseries.ToString() + " " + u.passnum.ToString()
-                                               },
-                "UserID",
-                "UserData",
-                null);
-            ViewBag.Users = users;
-            var devicesData = _deviceRepository.GetAll().Result;
-            SelectList devices = new SelectList(from d in devicesData
-                                                select new
-                                                {
-                                                    DeviceID = d.deviceid,
-                                                    DeviceData = d.manufacturer + " " + d.model + " " + d.devicedescription
-                                                },
-                "DeviceID",
-                "DeviceData",
-                null);
-            ViewBag.Devices = devices;
+            try
+            {
+                int roleid = _userTypeRepository.GetIDByName("client");
+                var usersData = _userRepository.GetAllByTypeID(roleid).Result;
+                SelectList users = new SelectList(from u in usersData
+                                                  select new
+                                                  {
+                                                      UserID = u.userid,
+                                                      UserData = u.lastname + " " + u.firstname + " " + u.middlename + " " + u.passseries.ToString() + " " + u.passnum.ToString()
+                                                  },
+                    "UserID",
+                    "UserData",
+                    null);
+                ViewBag.Users = users;
+                var devicesData = _deviceRepository.GetAll().Result;
+                SelectList devices = new SelectList(from d in devicesData
+                                                    select new
+                                                    {
+                                                        DeviceID = d.deviceid,
+                                                        DeviceData = d.manufacturer + " " + d.model + " " + d.devicedescription
+                                                    },
+                    "DeviceID",
+                    "DeviceData",
+                    null);
+                ViewBag.Devices = devices;
+            }
+            catch
+            {
+                throw;
+            }
             return View("CreatePanel\\CreateTask.cshtml");
         }
     }
